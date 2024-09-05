@@ -48,5 +48,5 @@
 
 # Opprinnelige løsning (13.09.2021 - 13.05.2022)
 
-- Den opprinnelige løsningen var utviklet av Anders Johan Konnestad.
+- [Den opprinnelige løsningen](https://github.com/ajaad/markakartet) var utviklet av Anders Johan Konnestad.
 - Erlend Kyrkjerud Hårtveit begynte videreutvikling av hans løsning i august 2023.
