@@ -43,7 +43,7 @@ function getDarkerColorIntegerListForSelect(integerListRGBA){
 // Returnerer en liste med integers. Eks: [0, 0, 0, 1]
 // Default: 33% mørkere.
 function getDarkerColorIntegerListRGBA(integerListRGBA, shadeGrade){
-    // console.log("getDarkerColorIntegerListRGBA ~ integerListRGBA: " + integerListRGBA + ", shadeGrade: " + shadeGrade);
+    // if(debug) console.log("getDarkerColorIntegerListRGBA ~ integerListRGBA: " + integerListRGBA + ", shadeGrade: " + shadeGrade);
     try{
         
         if(shadeGrade <= 0){
@@ -61,11 +61,11 @@ function getDarkerColorIntegerListRGBA(integerListRGBA, shadeGrade){
             parseInt(integerListRGBA[3])
             // 1 // alpha er alltid 1 her.
         ]
-        // console.log("nyIntegerListRGBA: " + nyIntegerListRGBA);
+        // if(debug) console.log("nyIntegerListRGBA: " + nyIntegerListRGBA);
         return nyIntegerListRGBA;
 
     }catch(exception){
-        // console.log("getDarkerColorIntegerListRGBA ~ exception! e: " + e);
+        // if(debug) console.log("getDarkerColorIntegerListRGBA ~ exception! e: " + e);
         return integerListRGBA; // Ingen forandring, hvis noe gikk galt.
     }
 }
@@ -73,7 +73,7 @@ function getDarkerColorIntegerListRGBA(integerListRGBA, shadeGrade){
 //
 function konverterRGBStrengTilArrayRGB(rgbStreng){
     var rgbArray = rgbStreng.split("(")[1].split(")")[0].split(",").map(Number); 
-    // console.log("rgbArray: " + rgbArray);
+    // if(debug) console.log("rgbArray: " + rgbArray);
     return rgbArray;
     // Kan legge til .filter(Boolean) til slutt, for å filtrere ugyldige symboler som bokstaver.
 }
@@ -82,7 +82,7 @@ function konverterRGBStrengTilArrayRGBA(rgbStreng){
     var rgbArray = rgbStreng.split("(")[1].split(")")[0].split(",").map(Number); 
     // if(rgbArray.length == 3) rgbArray.push(1); // For RGBA, legge til 1 (alpha).
     rgbArray.push(1);
-    // console.log("rgbArray: " + rgbArray + " | length: " + rgbArray.length);
+    // if(debug) console.log("rgbArray: " + rgbArray + " | length: " + rgbArray.length);
     return rgbArray;
     // Kan legge til .filter(Boolean) til slutt, for å filtrere ugyldige symboler som bokstaver.
 }

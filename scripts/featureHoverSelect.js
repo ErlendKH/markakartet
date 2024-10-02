@@ -15,7 +15,7 @@ let uidFeaturesDict = {}; // Dictionary som har uid som keys og feature som valu
 let hoverInfo = null; // hoverInfo popup elementet.
 
 featureHoverSelectKjorer = true;
-console.log("featureHoverSelectKjorer: " + featureHoverSelectKjorer);
+if(debug) console.log("featureHoverSelectKjorer: " + featureHoverSelectKjorer);
 
 $(document).ready(function () {
   hoverInfo = document.getElementById('hoverInfo');
@@ -44,7 +44,7 @@ function visHoverInfo(pixel, feature, layer, erIkonLag){
 
   } else {
     // erIkonLag er sann
-    // console.log(feature);
+    // if(debug) console.log(feature);
     const cluster = feature.get("features");
     // endeligeNavn = feature.get("features")[0].get("featureRuteNavn");
     endeligeNavn = cluster[cluster.length - 1].get("featureRuteNavn");
@@ -78,7 +78,7 @@ function nullstillFeatureClickSelection(){
             // OBS! Hardcodet navnet på kartlaget.
             // Dette kan være OK siden målet er å samle alle kalenderrutene i ett kartlag.
             const turKartlag = hentKartlagMedLagNavn("vektorlagKalenderRuter2021");
-            // console.log(turKartlag);
+            // if(debug) console.log(turKartlag);
             switch(grad){
               case "lett": case "1":
                 turStil = turKartlag.get("lettStil");
@@ -113,7 +113,7 @@ function nullstillFeatureClickSelection(){
               var stilDashed = dictEntry["stilDashed"];
               if(stilDashed != null){
                 feature.setStyle(stilDashed);
-                // console.log("Satt stilDashed for snarveien kalt med NAVN: " + NAVN);
+                // if(debug) console.log("Satt stilDashed for snarveien kalt med NAVN: " + NAVN);
                 // Debug:
                 // document.getElementById("debugVinduTekst").innerHTML += " | Klikk, tømmer lista ~ satt stilDash for snarvei: " + NAVN;
               }
@@ -159,7 +159,7 @@ function nullstillFeatureSelection(){
                 var stilDashed = dictEntry["stilDashed"];
                 if(stilDashed != null){
                   feature.setStyle(stilDashed);
-                  // console.log("Satt stilDashed for snarveien kalt med NAVN: " + NAVN);
+                  // if(debug) console.log("Satt stilDashed for snarveien kalt med NAVN: " + NAVN);
                   // Debug:
                   // document.getElementById("debugVinduTekst").innerHTML += " | Klikk, tømmer lista ~ satt stilDash for snarvei: " + NAVN;
                 }
@@ -272,8 +272,8 @@ function nullstillFeatureHovered(){
        snarvei = parseInt(snarvei);
        if (snarvei <= 0) {
 
-        // console.log("nullstillFeatureHovered triggered");
-        // console.log(featureHovered);
+        // if(debug) console.log("nullstillFeatureHovered triggered");
+        // if(debug) console.log(featureHovered);
 
         let turStil = null;
         let grad = featureHovered.get("grad");
@@ -283,7 +283,7 @@ function nullstillFeatureHovered(){
           // OBS! Hardcodet navnet på kartlaget.
           // Dette kan være OK siden målet er å samle alle kalenderrutene i ett kartlag.
           const turKartlag = hentKartlagMedLagNavn("vektorlagKalenderRuter2021");
-          // console.log(turKartlag);
+          // if(debug) console.log(turKartlag);
           switch(grad){
             case "lett": case "1":
               turStil = turKartlag.get("lettStil");
@@ -322,7 +322,7 @@ function nullstillFeatureHovered(){
            var stilDashed = dictEntry["stilDashed"];
            if (stilDashed != null) {
              featureHovered.setStyle(stilDashed);
-            //  console.log("Satt stilDashed for snarveien kalt med featureNavn: " + featureNavn);
+            //  if(debug) console.log("Satt stilDashed for snarveien kalt med featureNavn: " + featureNavn);
              // Debug
              // document.getElementById("debugVinduTekst").innerHTML += " | hover, satt til null ~ satt stilDashed for snarvei: " + NAVN;
            } else {
@@ -334,17 +334,17 @@ function nullstillFeatureHovered(){
 
      }
      featureHovered = null;
-     // console.log("featureHovered was set to null.");
+     // if(debug) console.log("featureHovered was set to null.");
 }
 
 // Brukt i map.on('pointermove') for å sette featureHovered og lage hover-effekten.
 // Tar inn feature og layer som parametere. Brukes inni: map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {}
 function settFeatureHovered(feature, layer, erIkonLag){
-  // console.log("settFeatureHovered triggered!");
-  // console.log(feature);
+  // if(debug) console.log("settFeatureHovered triggered!");
+  // if(debug) console.log(feature);
 
   if(erIkonLag){
-    // console.log(feature);
+    // if(debug) console.log(feature);
     // const clusterFeature = feature.get("features")[0];
     const cluster = feature.get("features");
     const clusterFeature = cluster[cluster.length - 1];
@@ -468,7 +468,7 @@ function settFeatureHovered(feature, layer, erIkonLag){
           stilDashed: stilDashed,
           stilDashedSelect: stilDashedSelect,
         };
-        // console.log(featureSelectionDict);
+        // if(debug) console.log(featureSelectionDict);
 
         if (stilDashedSelect != null) {
           featureHovered.setStyle(stilDashedSelect);
@@ -505,7 +505,7 @@ function nullstillHoveredFeature(feature) {
     const currentFeature = featureHoveredList[i];
     if (currentFeature == feature) {
 
-      console.log("nullstillFeatureHovered ~ currentFeature er lik feature! Nullstiller");
+      if(debug) console.log("nullstillFeatureHovered ~ currentFeature er lik feature! Nullstiller");
 
       // Sette til dashed for tur-snarveier!
       var snarvei = feature.get("Stiplet");
@@ -525,7 +525,7 @@ function nullstillHoveredFeature(feature) {
             // OBS! Hardcodet navnet på kartlaget.
             // Dette kan være OK siden målet er å samle alle kalenderrutene i ett kartlag.
             const turKartlag = hentKartlagMedLagNavn("vektorlagKalenderRuter2021");
-            // console.log(turKartlag);
+            // if(debug) console.log(turKartlag);
             switch (grad) {
               case "lett": case "1":
                 turStil = turKartlag.get("lettStil");
@@ -563,7 +563,7 @@ function nullstillHoveredFeature(feature) {
             var stilDashed = dictEntry["stilDashed"];
             if (stilDashed != null) {
               feature.setStyle(stilDashed);
-              //  console.log("Satt stilDashed for snarveien kalt med featureNavn: " + featureNavn);
+              //  if(debug) console.log("Satt stilDashed for snarveien kalt med featureNavn: " + featureNavn);
               // Debug
               // document.getElementById("debugVinduTekst").innerHTML += " | hover, satt til null ~ satt stilDashed for snarvei: " + NAVN;
             } else {
@@ -576,7 +576,7 @@ function nullstillHoveredFeature(feature) {
       }
 
       // featureHoveredList = featureHoveredList.slice(i, 1);
-      // console.log(featureHoveredList);
+      // if(debug) console.log(featureHoveredList);
       // featureHoveredANullstilleListe.push(feature);
       return; // Returnere for å avslutte loopen
     }
@@ -587,7 +587,7 @@ function nullstillHoveredFeature(feature) {
 // Brukt i map.on('pointermove') for å ta bort hover-effekt fra featureHovered.
 // Håndterer også snarveier.
 function nullstillFeatureHoveredList() {
-  // console.log("nullstillFeatureHoveredList ~ kjører");
+  // if(debug) console.log("nullstillFeatureHoveredList ~ kjører");
 
   for (var i = 0; i < featureHoveredList.length; i++) {
     const feature = featureHoveredList[i];
@@ -610,7 +610,7 @@ function nullstillFeatureHoveredList() {
           // OBS! Hardcodet navnet på kartlaget.
           // Dette kan være OK siden målet er å samle alle kalenderrutene i ett kartlag.
           const turKartlag = hentKartlagMedLagNavn("vektorlagKalenderRuter2021");
-          // console.log(turKartlag);
+          // if(debug) console.log(turKartlag);
           switch (grad) {
             case "lett": case "1":
               turStil = turKartlag.get("lettStil");
@@ -648,7 +648,7 @@ function nullstillFeatureHoveredList() {
           var stilDashed = dictEntry["stilDashed"];
           if (stilDashed != null) {
             feature.setStyle(stilDashed);
-            //  console.log("Satt stilDashed for snarveien kalt med featureNavn: " + featureNavn);
+            //  if(debug) console.log("Satt stilDashed for snarveien kalt med featureNavn: " + featureNavn);
             // Debug
             // document.getElementById("debugVinduTekst").innerHTML += " | hover, satt til null ~ satt stilDashed for snarvei: " + NAVN;
           } else {
@@ -663,19 +663,19 @@ function nullstillFeatureHoveredList() {
   } // For-loop ferdig.
 
   featureHoveredList = [];
-  // console.log(featureHoveredList);
+  // if(debug) console.log(featureHoveredList);
 
 }
 
 // Brukt i map.on('pointermove') for å sette featureHovered og lage hover-effekten.
 // Tar inn feature og layer som parametere. Brukes inni: map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {}
 function leggTilIFeatureHoveredList(feature, layer, erIkonLag) {
-  // console.log("settFeatureHovered triggered!");
-  // console.log(feature);
+  // if(debug) console.log("settFeatureHovered triggered!");
+  // if(debug) console.log(feature);
 
   if (erIkonLag) {
-    // console.log(layer);
-    // console.log(feature);
+    // if(debug) console.log(layer);
+    // if(debug) console.log(feature);
     // const clusterFeature = feature.get("features")[0];
     const cluster = feature.get("features");
     const clusterFeature = cluster[cluster.length - 1]; // Siste i lista er ikonet som er hoveret?
@@ -799,7 +799,7 @@ function leggTilIFeatureHoveredList(feature, layer, erIkonLag) {
           stilDashed: stilDashed,
           stilDashedSelect: stilDashedSelect,
         };
-        // console.log(featureSelectionDict);
+        // if(debug) console.log(featureSelectionDict);
 
         if (stilDashedSelect != null) {
           feature.setStyle(stilDashedSelect);
@@ -823,7 +823,7 @@ function leggTilIFeatureHoveredList(feature, layer, erIkonLag) {
   }
 
   featureHoveredList.push(feature);
-  // console.log(featureHoveredList);
+  // if(debug) console.log(featureHoveredList);
 
 }
 
@@ -838,19 +838,19 @@ function settFeaturesHoveredVedHoverAvIkon(feature, layer){
   const clusterFeatures = feature.get("features");
   for(var i = 0; i < clusterFeatures.length; i++){
     const clusterFeature = clusterFeatures[i];
-    // console.log(clusterFeature);
+    // if(debug) console.log(clusterFeature);
 
     const navn = clusterFeature.get("name");
     const grad = clusterFeature.get("featureGrad");
     const rute = clusterFeature.get("featureRute");
     const ruteNAVN = clusterFeature.get("featureRuteNavn");
     const ruteKartlag = clusterFeature.get("ruteKartlag");
-    // console.log("navn: " + navn + ", grad: " + grad + ", ruteNAVN: " + ruteNAVN);
-    // console.log(rute);
-    // console.log(ruteKartlag);
+    // if(debug) console.log("navn: " + navn + ", grad: " + grad + ", ruteNAVN: " + ruteNAVN);
+    // if(debug) console.log(rute);
+    // if(debug) console.log(ruteKartlag);
 
     var eksisterer = featureEksistererIFeatureSelectionList(rute);
-    // console.log("clusterFeature ~ ruteNAVN: " + ruteNAVN + " eksisterer i featureSelectionList: " + eksisterer);
+    // if(debug) console.log("clusterFeature ~ ruteNAVN: " + ruteNAVN + " eksisterer i featureSelectionList: " + eksisterer);
     if(!eksisterer){
       settStilerOgLeggTilFeatureISelectionList(rute, ruteKartlag);
     }
@@ -890,31 +890,31 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
     var lagNavn = layer.get("name"); // navn på kartlaget
     var uiLagnavn = layer.get("uiName");
     var clickable = layer.get("clickable");
-    // console.log("displayFeatureInfo ~ lagnavn: " + lagnavn + ", uiLagnavn: " + uiLagnavn + ", clickable: " + clickable);
+    // if(debug) console.log("displayFeatureInfo ~ lagnavn: " + lagnavn + ", uiLagnavn: " + uiLagnavn + ", clickable: " + clickable);
 
     if (clickable && feature && (!lagNavn.includes("Midlertidig") && !lagNavn.includes("midlertidig"))) {
 
       // Hm... Siden ikoner kan legge til flere features på en gang,
       // må sjekke om feature allerede eksisterer i featureSelectionList.
       // var featureEksisterer = featureEksistererIFeatureSelectionList(feature);
-      // console.log("feature eksisterer: " + featureEksisterer);
+      // if(debug) console.log("feature eksisterer: " + featureEksisterer);
 
       // OBS! For nå, ikke gjøre noe når man trykker på et ikon. Legge til det som skal skje da senere.
       // En øyeblikkelig utfordring er å finne rute-kartlaget for ikonlaget.
       if (lagNavn.includes("Ikon") || lagNavn.includes("ikon")) {
-        // console.log("klikk på ikon-kartlag! lagNavn: " + lagNavn);
+        // if(debug) console.log("klikk på ikon-kartlag! lagNavn: " + lagNavn);
         // Hva får jeg når jeg trykket på et ikon?
 
         // OBS! Får en liste, siden det er cluster, så er det alltid en liste med features.
         // Derfor kan det være lurt å selecte alle features i den listen...
         // Hm. Må bare sjekke at man ikke legger til samme rute flere ganger.
 
-        // console.log(feature.get("features"));
+        // if(debug) console.log(feature.get("features"));
 
         const clusterFeatures = feature.get("features");
         for (var i = 0; i < clusterFeatures.length; i++) {
           const clusterFeature = clusterFeatures[i];
-          // console.log(clusterFeature);
+          // if(debug) console.log(clusterFeature);
 
           const navn = clusterFeature.get("name");
           const grad = clusterFeature.get("featureGrad");
@@ -925,12 +925,12 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
           const ruteNAVN = clusterFeature.get("featureRuteNavn");
           const ruteKartlag = clusterFeature.get("ruteKartlag");
           const kartlagType = clusterFeature.get("featureRute").get("kartlagType");
-          // console.log("kartlagType: " + kartlagType);
+          // if(debug) console.log("kartlagType: " + kartlagType);
 
           // 
           const stipletter = rute.get("stipletter");
           if (stipletter) {
-            // console.log("settFeatureSelectionListeOgLagPopup ~ ruten " + ruteNAVN + " har stipletter! antall: " + stipletter.length);
+            // if(debug) console.log("settFeatureSelectionListeOgLagPopup ~ ruten " + ruteNAVN + " har stipletter! antall: " + stipletter.length);
             for (var l = 0; l < stipletter.length; l++) {
               settStilerOgLeggTilIFeatureClickSelection(stipletter[l], ruteKartlag);
             }
@@ -938,7 +938,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
 
           // var eksisterer = featureEksistererIFeatureSelectionList(rute);
           var eksisterer = featureEksistererIFeatureClickSelection(rute);
-          // console.log("clusterFeature ~ ruteNAVN: " + ruteNAVN + " eksisterer i featureSelectionList: " + eksisterer);
+          // if(debug) console.log("clusterFeature ~ ruteNAVN: " + ruteNAVN + " eksisterer i featureSelectionList: " + eksisterer);
           if (!eksisterer && currentItems < 10) {
             currentItems++;
             fullTekst += lagFeatureSelectionPopupTekst(rute, ruteKartlag, stipletter, koordinater);
@@ -961,13 +961,13 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
         // TRYKK PÅ KARTLAG SOM IKKE ER ET IKON-KARTLAG
 
         const featureType = feature.get("kartlagType");
-        console.log(`settFeatureSelectionListeOgLagPopup ~ featureType: ${featureType}`)
+        if(debug) console.log(`settFeatureSelectionListeOgLagPopup ~ featureType: ${featureType}`)
 
         // Bare for kalenderturer
         let featureNavn = feature.get("overskrift");
         let stiplet = feature.get("Stiplet");
         let stipletter = null; // Default bare null for natursti og turer uten stiplet, men inneholder features for turer med stipletter.
-        // console.log("feature: " + featureNavn + ", stiplet: " + stiplet);
+        // if(debug) console.log("feature: " + featureNavn + ", stiplet: " + stiplet);
 
         // 1. Ikke legge til stiplet i popup.
         // 2. Fortsatt legge til stiplet i featureClickSelection.
@@ -991,8 +991,8 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
   
         //       if (hovedrute) {
         //         feature = hovedrute; // Lurer på om dette går bra?
-        //         // console.log("settFeatureSelectionListeOgLagPopup ~ Fant hovedrute for stiplet. feature er nå: ");
-        //         // console.log(feature);
+        //         // if(debug) console.log("settFeatureSelectionListeOgLagPopup ~ Fant hovedrute for stiplet. feature er nå: ");
+        //         // if(debug) console.log(feature);
         //         // Oppdatere variabler
         //         featureNavn = feature.get("overskrift");
         //         stiplet = feature.get("Stiplet");
@@ -1011,7 +1011,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
         //         // Sjekke etter stipletter
         //         stipletter = feature.get("stipletter");
         //         if (stipletter) {
-        //           // console.log("settFeatureSelectionListeOgLagPopup ~ ruten " + featureNavn + " har stipletter! antall: " + stipletter.length);
+        //           // if(debug) console.log("settFeatureSelectionListeOgLagPopup ~ ruten " + featureNavn + " har stipletter! antall: " + stipletter.length);
         //           for (var l = 0; l < stipletter.length; l++) {
         //             settStilerOgLeggTilIFeatureClickSelection(stipletter[l], layer);
         //           }
@@ -1038,7 +1038,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
 
         //   eksisterer = featureEksistererIFeatureClickSelection(feature);
         //   // var endeligeNavn = hentFeatureNavnMedBackup(feature);
-        //   // console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
+        //   // if(debug) console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
         //   if (!eksisterer) {
         //     // currentItems++;
         //     // fullTekst += lagFeatureSelectionPopupTekst(feature, layer, stipletter, koordinater);
@@ -1054,7 +1054,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
 
         //   eksisterer = featureEksistererIFeatureClickSelection(feature);
         //   // var endeligeNavn = hentFeatureNavnMedBackup(feature);
-        //   // console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
+        //   // if(debug) console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
         //   if (!eksisterer) {
         //     // currentItems++;
         //     // fullTekst += lagFeatureSelectionPopupTekst(feature, layer, stipletter, koordinater);
@@ -1070,7 +1070,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
 
         //   eksisterer = featureEksistererIFeatureClickSelection(feature);
         //   // var endeligeNavn = hentFeatureNavnMedBackup(feature);
-        //   // console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
+        //   // if(debug) console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
         //   if (!eksisterer) {
         //     // currentItems++;
         //     // fullTekst += lagFeatureSelectionPopupTekst(feature, layer, stipletter, koordinater);
@@ -1096,8 +1096,8 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
 
             if (hovedrute) {
               feature = hovedrute; // Lurer på om dette går bra?
-              // console.log("settFeatureSelectionListeOgLagPopup ~ Fant hovedrute for stiplet. feature er nå: ");
-              // console.log(feature);
+              // if(debug) console.log("settFeatureSelectionListeOgLagPopup ~ Fant hovedrute for stiplet. feature er nå: ");
+              // if(debug) console.log(feature);
               // Oppdatere variabler
               featureNavn = feature.get("overskrift");
               stiplet = feature.get("Stiplet");
@@ -1116,7 +1116,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
               // Sjekke etter stipletter
               stipletter = feature.get("stipletter");
               if (stipletter) {
-                // console.log("settFeatureSelectionListeOgLagPopup ~ ruten " + featureNavn + " har stipletter! antall: " + stipletter.length);
+                // if(debug) console.log("settFeatureSelectionListeOgLagPopup ~ ruten " + featureNavn + " har stipletter! antall: " + stipletter.length);
                 for (var l = 0; l < stipletter.length; l++) {
                   settStilerOgLeggTilIFeatureClickSelection(stipletter[l], layer);
                 }
@@ -1141,7 +1141,7 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
 
           eksisterer = featureEksistererIFeatureClickSelection(feature);
           // var endeligeNavn = hentFeatureNavnMedBackup(feature);
-          // console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
+          // if(debug) console.log("kartlag " + endeligeNavn + " eksisterer i featureSelectionList: " + eksisterer);
           if (!eksisterer) {
             // currentItems++;
             // fullTekst += lagFeatureSelectionPopupTekst(feature, layer, stipletter, koordinater);
@@ -1175,14 +1175,14 @@ function settFeatureSelectionListeOgLagPopup(pixel, koordinater) {
   }
 
   if ((featureClickSelectionList.length == 1 || currentItems == 1) && featureInfoData.length > 0) {
-    // console.log(featureClickSelectionList);
-    // console.log(featureInfoData);
+    // if(debug) console.log(featureClickSelectionList);
+    if(debug) console.log(featureInfoData);
 
     skjulPopupContainer();
 
     // NOTE: Imorgen... Lage midlertidige ruter for stiplettene også i visFeatureInfoSide.
 
-    // console.log("Bare en tur er trykket på, viser info");
+    // if(debug) console.log("Bare en tur er trykket på, viser info");
     visFeatureInfoSide(featureInfoData[0], featureInfoData[1], featureInfoData[2], featureInfoData[3], false);
     // Skjule popup når det uansett bare er en tur.
   }
@@ -1215,23 +1215,23 @@ function lagFeatureSelectionPopupTekst(feature, layer, stipletter, koordinater){
   const properties = feature.getProperties();
   const id = feature.getId(); // Denne er visst ofte null
   const uid = feature["ol_uid"]; // Bruke denne som unik identifier
-  // console.log("uid: " + uid);
+  // if(debug) console.log("uid: " + uid);
 
   const grad = properties["grad"];
-  // console.log("grad: " + properties["grad"]);
+  // if(debug) console.log("grad: " + properties["grad"]);
   const turType = properties["tur_type"];
-  // console.log("turType: " + properties["turType"]);
+  // if(debug) console.log("turType: " + properties["turType"]);
 
   const kartlagType = properties["kartlagType"];
-  // console.log("-----")
-  // console.log(feature);
-  // console.log(properties);
-  // console.log("kartlagType: " + kartlagType);
+  // if(debug) console.log("-----")
+  // if(debug) console.log(feature);
+  // if(debug) console.log(properties);
+  // if(debug) console.log("kartlagType: " + kartlagType);
 
   const lagNavn = layer.get("name");
   // Kan ikke ha mellomrom...
   const onclickFeatureIPopup = "featureKlikkIPopup(" + uid + ",'" + lagNavn + "'," + har_stiplet + ");";
-  // console.log(onclickFeatureIPopup);
+  // if(debug) console.log(onclickFeatureIPopup);
   
   // VIKTIG NOTAT (VERSJON 1): IKKE VIS FEATURE INFO på versjon 1.
   // popupTekst = '<div class="divHolder" onclick="featureKlikkIPopup(' + test + ', ' + feature + ', ' + layer + ');">';
@@ -1268,12 +1268,12 @@ function lagFeatureSelectionPopupTekst(feature, layer, stipletter, koordinater){
 function settFeatureSelectionStiler(feature, layer) {
   var endeligeNavn = hentFeatureNavnMedBackup(feature);
 
-  // console.log("settFeatureSelectionStiler ~ featureNavn: " + endeligeNavn);
-  // console.log(feature);
-  // console.log(layer);
+  // if(debug) console.log("settFeatureSelectionStiler ~ featureNavn: " + endeligeNavn);
+  // if(debug) console.log(feature);
+  // if(debug) console.log(layer);
 
   let grad = feature.get("grad");
-  // console.log("grad: " + grad);
+  // if(debug) console.log("grad: " + grad);
 
   let turStilSelect = null;
   if(grad){
@@ -1326,7 +1326,7 @@ function settFeatureSelectionStiler(feature, layer) {
         featureSelection.setStyle(defaultWhiteSelectStyle);
       } else {
         // Notat: Her blir nok select stil satt for område features.
-        console.log(`settFeatureSelectionStiler ~ natursti eller område feature`);
+        if(debug) console.log(`settFeatureSelectionStiler ~ natursti eller område feature`);
 
         var stilSelect = layer.get("stilSelect");
         if (stilSelect != null) {
@@ -1389,7 +1389,7 @@ function settFeatureSelectionStiler(feature, layer) {
         stilDashed: stilDashed,
         stilDashedSelect: stilDashedSelect,
       };
-      // console.log(featureSelectionDict);
+      // if(debug) console.log(featureSelectionDict);
   
       if (useDefaultWhiteStyle) {
         featureSelection.setStyle(defaultWhiteDashedSelectStyle);
@@ -1445,12 +1445,12 @@ function settStilerOgLeggTilIFeatureClickSelection(feature, layer){
 // feature: feature
 // layer: kartlag
 // function featureKlikkIPopup(erIkon, feature, layer){
-//   console.log("featureKlikkIPopup klikket! erIkon: " + ikon + ", lagNavn: " + layer.get("name"));
+//   if(debug) console.log("featureKlikkIPopup klikket! erIkon: " + ikon + ", lagNavn: " + layer.get("name"));
 // }
 
 function hentFeatureOgNavnMedUID(featureUID, kartlag){
   let outFeatureDictEntry = uidFeaturesDict[featureUID];
-  console.log(outFeatureDictEntry);
+  if(debug) console.log(outFeatureDictEntry);
 
   if(outFeatureDictEntry){
     return [ outFeatureDictEntry["feature"], outFeatureDictEntry["navn"] ];
@@ -1463,11 +1463,11 @@ function hentFeatureOgNavnMedUID(featureUID, kartlag){
       const feature = featuresArray[i];
       const featureNavn = hentFeatureNavnMedBackup(feature);
       const uid = feature["ol_uid"];
-      // console.log("feature ~ navn: " + featureNavn + ", uid: " + uid);
+      // if(debug) console.log("feature ~ navn: " + featureNavn + ", uid: " + uid);
   
       if(uid == featureUID){
-        // console.log("Fant feature med UID! featureNavn: " + featureNavn);
-        // console.log(feature);
+        // if(debug) console.log("Fant feature med UID! featureNavn: " + featureNavn);
+        // if(debug) console.log(feature);
         outFeature = feature;
         outFeatureNavn = featureNavn;
         // Definerer dictEntry for feature med uid som key.
@@ -1487,25 +1487,25 @@ function hentFeatureOgNavnMedUID(featureUID, kartlag){
 
 // Hm... Få denne til å virke med område features?
 function featureKlikkIPopup(featureUID, lagNavn, harStiplet){
-  // console.log("featureKlikkIPopup klikket! featureUID: " + featureUID + ", lagNavn: " + lagNavn + ", harStiplet: " + harStiplet);
+  // if(debug) console.log("featureKlikkIPopup klikket! featureUID: " + featureUID + ", lagNavn: " + lagNavn + ", harStiplet: " + harStiplet);
 
   // Må nok alltid hente selve kartlaget med hentKartlagMedLagNavn.
   const kartlag = hentKartlagMedLagNavn(lagNavn);
-  // console.log(kartlag);
+  // if(debug) console.log(kartlag);
 
   kartlagFeature = null;
   kartlagFeatureNavn = "";
 
   const featureOgNavn = hentFeatureOgNavnMedUID(featureUID, kartlag);
-  // console.log(featureOgNavn);
+  // if(debug) console.log(featureOgNavn);
 
   kartlagFeature = featureOgNavn[0];
   kartlagFeatureNavn = featureOgNavn[1];
 
   if(kartlagFeature != null){
-    console.log("Fant kartlagFeature med UID! featureNavn: " + kartlagFeatureNavn);
-    console.log(kartlagFeature);
-    // console.log(kartlag);
+    if(debug) console.log("Fant kartlagFeature med UID! featureNavn: " + kartlagFeatureNavn);
+    if(debug) console.log(kartlagFeature);
+    // if(debug) console.log(kartlag);
 
     const kartlagType = kartlagFeature.get("kartlagType");
 
@@ -1526,7 +1526,7 @@ function featureKlikkIPopup(featureUID, lagNavn, harStiplet){
       // selectRute(kartlagFeature, kartlag);
 
     } else {
-      console.log("featureKlikkIPopup ~ Kartlaget er ikke et turkartlag!");
+      if(debug) console.log("featureKlikkIPopup ~ Kartlaget er ikke et turkartlag!");
       // Hvis kartlagType er omraade -- eller kanskje bare sjekke at den ikke er null.
       if(kartlagType != null){
         visFeatureInfoSide(kartlagFeature, kartlagFeatureNavn, kartlag, stipletter, false);
@@ -1534,14 +1534,14 @@ function featureKlikkIPopup(featureUID, lagNavn, harStiplet){
     }
 
   } else {
-    console.log("featureKlikkIPopup ~ Fant ikke tur feature med UID: " + featureUID);
+    if(debug) console.log("featureKlikkIPopup ~ Fant ikke tur feature med UID: " + featureUID);
   }
   
 }
 
 // Tømmer selectionListe og uthever en enkelt rute.
 function selectRute(feature, kartlag, stipletter){
-  // console.log("\nselectRute kjører!")
+  // if(debug) console.log("\nselectRute kjører!")
   nullstillFeatureClickSelection();
   settStilerOgLeggTilIFeatureClickSelection(feature, kartlag);
   // 

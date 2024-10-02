@@ -299,16 +299,19 @@
                         </div>
  
                         <script>
+                            const deb = !window.location.origin.includes("markakartet.no")
+                            // if(deb) console.log(`deb: ${deb}`)
+                            
                             // var testSlider = document.getElementById("testSlider");
                             // var output = document.getElementById("sliderValue");
                             // output.innerHTML = slider.value;
 
                             function testInfo(){
-                                console.log("testInfo clicked!");
+                                if(deb) console.log("testInfo clicked!");
                                 var element = document.getElementById("aktivtLagEkstraInfoTest");
                                 var style = window.getComputedStyle(element);
                                 var display = style.getPropertyValue("display");
-                                console.log("display: " + display);
+                                if(deb) console.log("display: " + display);
                                 if(display == "block"){
                                     element.style.display = "none";
                                 } else {
@@ -325,16 +328,16 @@
                                     'rgb(255,255,255)'
                                 ],
                                 onChange: (color) => {
-                                    console.log("aktiv1test ~ onChange triggered! color: " + color);
+                                    if(deb) console.log("aktiv1test ~ onChange triggered! color: " + color);
                                 },
                                 onClear: (color) => {
-                                    console.log("aktiv1test ~ onClear triggered! color: " + color);
+                                    if(deb) console.log("aktiv1test ~ onClear triggered! color: " + color);
                                 },
                                 onClose: (color) => {
-                                    console.log("aktiv1test ~ onClose triggered! color: " + color);
+                                    if(deb) console.log("aktiv1test ~ onClose triggered! color: " + color);
                                 },
                                 onOpen: (color) => {
-                                    console.log("aktiv1test ~ onOpen triggered! color: " + color);
+                                    if(deb) console.log("aktiv1test ~ onOpen triggered! color: " + color);
                                 }
                             });
 
@@ -347,25 +350,25 @@
                                     'rgb(0,0,0)'
                                 ],
                                 onChange: (color) => {
-                                    console.log("aktiv2test ~ onChange triggered! color: " + color);
+                                    if(deb) console.log("aktiv2test ~ onChange triggered! color: " + color);
                                 },
                                 onClear: (color) => {
-                                    console.log("aktiv2test ~ onClear triggered! color: " + color);
+                                    if(deb) console.log("aktiv2test ~ onClear triggered! color: " + color);
                                 },
                                 onClose: (color) => {
-                                    console.log("aktiv2test ~ onClose triggered! color: " + color);
+                                    if(deb) console.log("aktiv2test ~ onClose triggered! color: " + color);
                                 },
                                 onOpen: (color) => {
-                                    console.log("aktiv2test ~ onOpen triggered! color: " + color);
+                                    if(deb) console.log("aktiv2test ~ onOpen triggered! color: " + color);
                                 }
                             });
 
                             function testRediger(){
-                                console.log("testRediger clicked!");
+                                if(deb) console.log("testRediger clicked!");
                                 var redigerPanel = document.getElementById("aktivtLagRedigerPanelId");
                                 var style = window.getComputedStyle(redigerPanel);
                                 var display = style.getPropertyValue("display");
-                                console.log("display: " + display);
+                                if(deb) console.log("display: " + display);
                                 if(display == "block"){
                                     redigerPanel.style.display = "none";
                                 } else {
@@ -378,10 +381,10 @@
                             }
 
                             function updateSliderValue(){
-                                // console.log("updateSliderValue triggered!");
+                                // if(deb) console.log("updateSliderValue triggered!");
                                 var val = document.getElementById("testSlider").value;
                                 var f = TESTintegerToPercent(val);
-                                // console.log("v: " + val + ", f: " + f); // Seems to work fine.
+                                // if(deb) console.log("v: " + val + ", f: " + f); // Seems to work fine.
 
                                 document.getElementById("sliderVerdi").innerHTML = val;
 
@@ -725,7 +728,7 @@
                                     plausible("Mål 8: Trykk på 'Mer informasjon om medlemskap' lenke", {
                                     });
                                 } catch (e) {
-                                    console.log(e);
+                                    if(deb) console.log(e);
                                 }
                                 */
                             }
@@ -799,6 +802,7 @@
     <script src="./libs/jquery-3.6.1.min.js"></script>
 
     <!--  -->
+    <script src="./scripts/globaleVar.js"></script>
     <script src="./scripts/funksjoner.js"></script>
     <script src="./scripts/kartDataDict.js"></script>
     <script src="./scripts/kartData.js"></script>

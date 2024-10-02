@@ -24,33 +24,6 @@ function fadeInnogUtDebugMelding(melding, varighet){
   }, varighet);
 }
 
-// Gjøre slik at /skole kan hente dataen
-const loc = window.location;
-// console.log(loc);
-
-const origin = loc.origin;
-// console.log("origin: " + origin);
-
-// NOTAT: origin funker dårlig med github-page addressen for testsiden.
-
-var originWithSlash = origin + "/";
-// console.log("origin with slash: " + originWithSlash);
-
-var isGithubSite = originWithSlash.includes("github.io");
-// console.log("isGithubSite: " + isGithubSite);
-
-if(isGithubSite){
-    originWithSlash += "markakartet_dev/";
-    // console.log("fixed origin for github.io: " + originWithSlash);
-}
-
-const erMarkakartetDomene = originWithSlash.includes("markakartet.no");
-if(erMarkakartetDomene){
-    console.log("Du er nå på markakartet.no");
-}
-
-// Definer disse her.
-
 let ikonPlassering = "";
 
 if(isGithubSite){
@@ -127,7 +100,7 @@ let ikonTursti15 = ikonPlassering + "tursti-ikoner-blue-sky-light-15.png";
 // Egen funksjon til å returnere riktig ikon plassering.
 // Hm... Returnere to ting: [plassering, gradOgTurType]
 function hentRiktigTurIkonPlassering(grad, turType){
-    // console.log("hentRiktigTurIkonPlassering ~ grad: " + grad + ", turType: " + turType);
+    // if(debug) console.log("hentRiktigTurIkonPlassering ~ grad: " + grad + ", turType: " + turType);
 
     // try catch i tilfelle grad og turType ikke er integers. Ved feil defaulter den til ukjent grad og type.
     // Hm... Trenger egentlig ikke konvertere dem til integers - kan bare lese strengverdien.
@@ -166,7 +139,7 @@ function hentRiktigTurIkonPlassering(grad, turType){
         endeligTurTypeOgGrad += "Ukjent";
     }
 
-    // console.log("endeligTurTypeOgGrad: " + endeligTurTypeOgGrad);
+    // if(debug) console.log("endeligTurTypeOgGrad: " + endeligTurTypeOgGrad);
 
     // Returnerer endelig ikon. Hvis ingen switch statements passer, så vil den defaulte til ikonUkjentGradOgType.
     switch (endeligTurType) {
@@ -287,7 +260,7 @@ var kartlagListeFraUrlParam = [];
 function leggTilIAktiveKartlagListen(kartlagNavn){
     if(!aktiveKartlagListe.includes(kartlagNavn)){
         aktiveKartlagListe.push(kartlagNavn);
-        // console.log(aktiveKartlagListe);
+        // if(debug) console.log(aktiveKartlagListe);
         lagUrl();
     }
 }
@@ -296,7 +269,7 @@ function slettFraAktiveKartlagListen(kartlagNavn){
     for(var i = 0; i < aktiveKartlagListe.length; i++){
         if(kartlagNavn == aktiveKartlagListe[i]){
             aktiveKartlagListe.splice(i, 1);
-            // console.log(aktiveKartlagListe);
+            // if(debug) console.log(aktiveKartlagListe);
             lagUrl();
             return;
         }
@@ -306,7 +279,7 @@ function slettFraAktiveKartlagListen(kartlagNavn){
 function lagStrengForAktiveKartlagListen(){
     let endeligeStreng = "";
     const antallAktiveKartlag = aktiveKartlagListe.length;
-    // console.log("antallAktiveKartlag: " + antallAktiveKartlag);
+    // if(debug) console.log("antallAktiveKartlag: " + antallAktiveKartlag);
 
     for(var i = 0; i < antallAktiveKartlag; i++){
         if(i < antallAktiveKartlag - 1){
@@ -316,57 +289,57 @@ function lagStrengForAktiveKartlagListen(){
             endeligeStreng += aktiveKartlagListe[i];
         }
     }
-    // console.log("endeligeStreng: " + endeligeStreng);
+    // if(debug) console.log("endeligeStreng: " + endeligeStreng);
     return endeligeStreng;
 }
 // Fra streng til liste
 function fyllAktiveKartlagListenFraStreng(streng){
     aktiveKartlagListe = streng.split(",");
-    console.log(aktiveKartlagListe);
+    if(debug) console.log(aktiveKartlagListe);
 }
 
 const pathName = loc.pathname;
-console.log("pathName: " + pathName);
+if(debug) console.log("pathName: " + pathName);
 
 const href = window.location.href;
-console.log("href: " + href);
+if(debug) console.log("href: " + href);
 
 // URL PARAMETERS
 
 const url = window.location.search;
-console.log(url);
+if(debug) console.log(url);
 
 const urlParameters = new URLSearchParams(url);
-console.log(urlParameters);
+if(debug) console.log(urlParameters);
 
 for (var entry of urlParameters.entries()) {
-    // console.log(entry);
+    // if(debug) console.log(entry);
     //
     switch(entry[0]){
         case "zoom":
             zoomFraUrl = parseFloat(entry[1]);
-            // console.log("zoomFraUrl: " + zoomFraUrl);
+            // if(debug) console.log("zoomFraUrl: " + zoomFraUrl);
             break;
         case "center":
             const koordinater = entry[1].split(",");
             centerFraUrl = [parseFloat(koordinater[0]), parseFloat(koordinater[1])];
-            // console.log("centerFraUrl: " + centerFraUrl);
+            // if(debug) console.log("centerFraUrl: " + centerFraUrl);
             break;
         case "bakgrunn":
             bakgrunnFraUrlParam = entry[1];
-            // console.log("bakgrunnFraUrlParam:" + bakgrunnFraUrlParam);
+            // if(debug) console.log("bakgrunnFraUrlParam:" + bakgrunnFraUrlParam);
             break;
         case "kartlag":
-            // console.log(entry[1]);
+            // if(debug) console.log(entry[1]);
             kartlagListeFraUrlParam = entry[1].split(",");
-            // console.log(aktiveKartlagListe);
+            // if(debug) console.log(aktiveKartlagListe);
             break;
         case "infoSideFeature":
-            // console.log(entry[1]);
+            // if(debug) console.log(entry[1]);
             infoSideFeatureNavnFraUrl = entry[1];
             break;
         case "infoSideKartlag":
-            // console.log(entry[1]);
+            // if(debug) console.log(entry[1]);
             infoSideKartlagNavnFraUrl = entry[1];
             break;
     }
@@ -982,7 +955,7 @@ var SammenhengendeVillmarkData = ["GeoJSONdata", {
 settFargerForLagData(SammenhengendeVillmarkData, SammenhengendeVillmarkData[1]["fillColor"]);
 
 // Test:
-// console.log(SammenhengendeVillmarkData[1].data)
+// if(debug) console.log(SammenhengendeVillmarkData[1].data)
 
 var vektorKildeRestaureringsomrader = new ol.source.Vector({
     // url: originWithSlash + "data/restaureringsomrader.geojson",
@@ -1159,6 +1132,151 @@ var vektorLagVernEtterMarkaloven = new ol.layer.Vector({
 });
 // forberedFaktasiderForOmraadeVektorlag(vektorLagVernEtterMarkaloven, false)
 
+// Test med featureServer
+
+var featureServerNaturvernOmraadeData = ["GeoJSONdata", {
+    dataName: "featureServerNaturvernOmraadeData",
+    // data: originWithSlash + "data/markaloven.geojson",
+    strokeColor: [0,0,0, 1],
+    fillColor: [255, 160, 122, 1],
+    strokeWidth: 1,
+    strokeColorSelect: [0,0,0, 1],
+    fillColorSelect: [0,0,0, 1],
+    strokeWidthSelect: 2,
+    opacity: 1,
+    clickEvent: 1
+}];
+settFargerForLagData(featureServerNaturvernOmraadeData, featureServerNaturvernOmraadeData[1]["fillColor"]);
+
+let featureServerServiceUrl = "https://kart.miljodirektoratet.no/arcgis/rest/services/vern/FeatureServer/"
+let featureServerLayer = "0"
+let featureServerEsriJSONFormat = new ol.format.EsriJSON()
+// let featureServerCompleteUrl = featureServerServiceUrl + featureServerLayer 
+// // + '/query/?f=json'
+// + '?f=json'
+// + '&returnGeometry=true&spatialRel=esriSpatialRelIntersects' + 
+// '&geometry=' + 
+//   encodeURIComponent(
+//     '{"xmin":' +
+//       extent[0] +
+//       ',"ymin":' +
+//       extent[1] +
+//       ',"xmax":' +
+//       extent[2] +
+//       ',"ymax":' +
+//       extent[3] +
+//       ',"spatialReference":{"wkid":25833}}',
+//   ) 
+//   + '&geometryType=esriGeometryEnvelope&inSR=25833&outFields=*'
+
+//   if(debug) console.log(featureServerCompleteUrl)
+
+var featureServerNaturvernOmradeVektorKilde = new ol.source.Vector({
+
+    loader: function (extent, resolution, projection) {
+
+        const url = featureServerServiceUrl + featureServerLayer 
+        // + '/query/?f=json'
+
+        // + '?f=json'
+        // + '&outFields=*'
+
+        // + '&returnGeometry=true&spatialRel=esriSpatialRelIntersects' 
+        // '&geometry=' + 
+        //   encodeURIComponent(
+        //     '{"xmin":' +
+        //       extent[0] +
+        //       ',"ymin":' +
+        //       extent[1] +
+        //       ',"xmax":' +
+        //       extent[2] +
+        //       ',"ymax":' +
+        //       extent[3] +
+        //       ',"spatialReference":{"wkid":25833}}',
+        //   ) 
+        
+        // '{' + "'xmin':" + extent[0] + "," + "'ymin':" + extent[1] + ",'xmax':" + extent[2] + ",'ymax':" + extent[3] + ",'spatialReference':{" + "'wikid':25833}}"
+
+        //   + '&geometryType=esriGeometryPolygon&inSR=25833&outFields=*'
+
+        //   '/query/?f=json&' +
+        //   'returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry=' +
+        //   encodeURIComponent(
+        //     '{"xmin":' +
+        //       extent[0] +
+        //       ',"ymin":' +
+        //       extent[1] +
+        //       ',"xmax":' +
+        //       extent[2] +
+        //       ',"ymax":' +
+        //       extent[3] +
+        //       ',"spatialReference":{"wkid":102100}}',
+        //   ) +
+        //   '&geometryType=esriGeometryEnvelope&inSR=102100&outFields=*' +
+        //   '&outSR=102100';
+
+        if(debug) console.log(url)
+
+        // $.ajax({
+        //     url: url,
+        //     dataType: 'jsonp',
+        //     success: function (response) {
+        //         if (response.error) {
+
+        //             if(debug) console.log(response.error.message + '\n' + response.error.details.join('\n'))
+                    
+        //             // alert(response.error.message + '\n' + response.error.details.join('\n'),);
+
+        //         } else {
+        //             // dataProjection will be read from document
+        //             const features = featureServerEsriJSONFormat.readFeatures(response, {
+        //                 featureProjection: projection,
+        //             });
+
+        //             if(debug) console.log(`features:`)
+        //             if(debug) console.log(features)
+
+        //             if (features.length > 0) {
+        //                 featureServerNaturvernOmradeVektorKilde.addFeatures(features);
+        //             }
+        //         }
+        //     },
+        // })
+
+    }
+
+    // format: geoJSONFormat,
+    // url: "https://kart.miljodirektoratet.no/arcgis/rest/services/vern/FeatureServer/0?f=json",
+    // features: new ol.Collection(),
+});
+
+var vektorlagFeatureServerNaturvernOmrade = new ol.layer.Vector({
+    source: featureServerNaturvernOmradeVektorKilde,
+    style: lagStilFraGeoJSON(featureServerNaturvernOmraadeData, false),
+    name: "vektorlagFeatureServerNaturvernOmrade",
+    uiName: "Naturvern område (featureServer)",
+    stilSelect: lagStilFraGeoJSON(featureServerNaturvernOmraadeData, true),
+    strokeColorSelect: hentOgKonverterFargeArray(featureServerNaturvernOmraadeData, 'strokeColorSelect'),
+    fillColorSelect: hentOgKonverterFargeArray(featureServerNaturvernOmraadeData, 'fillColorSelect'),
+    opacity: DEFAULT_OPACITY,
+    clickable: true,
+    visible: false
+});
+forberedFaktasiderForOmraadeVektorlag(vektorlagFeatureServerNaturvernOmrade, true)
+
+// var featureServerNaturvernOmrade = new ol.source.Vector({
+//     source: new ol.source.ImageWMS({
+//         url: "https://kart.miljodirektoratet.no/arcgis/services/friluftsliv_vern/mapserver/WMSServer",
+//         params: { 'LAYERS': "friluftsliv_verneomrader" },
+//         ratio: 2,
+//         serverType: 'mapserver'
+//     }),
+//     opacity: DEFAULT_OPACITY,
+//     visible: false,
+//     name: "featureServerLagNaturvernOmrade",
+//     uiName: "Naturvern område (featureServer)",
+// });
+
 // EE
 // NOTE: uiName på lagnivå skal bli brukt til klikk-highlight selection (på lag-features).
 // NOTE: De som er WMS-lag kan ikke hente lagNavn og uiLagNavn fra et kartlag, siden det ikke er klart enda.
@@ -1193,6 +1311,13 @@ var kartMenyLagDictFriluftslivsomraaderVernede = {
     lagReferanse: wmsLagFriluftslivsomraaderVernede
 }
 
+// Test med featureServer
+var kartMenyLagDictFeatureServerNaturvernOmraade = {
+    lagNavn: "vektorlagFeatureServerNaturvernOmrade",
+    uiLagNavn: "Naturvern område (featureServer)",
+    lagReferanse: vektorlagFeatureServerNaturvernOmrade
+}
+
 // OBS! Disse vises i kartmeny UI!
 var kartMenyGruppeDictVerneomraader = {
     gruppeNavn: "Verneområder",
@@ -1204,6 +1329,7 @@ var kartMenyGruppeDictVerneomraader = {
         kartMenyLagDictFriluftStatligSikra,
         // kartMenyLagDictVernEtterMarkaloven,
         kartMenyLagDictFriluftslivsomraaderVernede,
+        kartMenyLagDictFeatureServerNaturvernOmraade,
     ]
 }
 // OBS! Disse blir lagt til i map-objektet!
@@ -1218,6 +1344,7 @@ var mapGruppeVerneomrader = new ol.layer.Group({
         wmsLagFriluftStatligSikra,
         // vektorLagVernEtterMarkaloven,
         wmsLagFriluftslivsomraaderVernede,
+        vektorlagFeatureServerNaturvernOmrade,
     ]
   });
 
@@ -1261,6 +1388,24 @@ var eventyrskogData = ["GeoJSONdata", {
 }];
 // 
 settFargerForLagData(eventyrskogData, eventyrskogData[1]["fillColor"]);
+
+// OPPDATERT EVENTYRSKOGER
+
+var eventyrskogOppdatertData = ["GeoJSONdata", {
+    dataName: "eventyrskogOppdatertData",
+    data: originWithSlash + "data/eventyrskog-oppdatert.geojson",
+    // fillColor: [40, 221, 90, 1],
+    fillColor: [71, 243, 101, 1],
+    strokeColor: [0, 0, 0, 0],
+    strokeWidth: 1,
+    fillColorSelect: [0, 0, 0, 0],
+    strokeColorSelect: [0, 0, 0, 0],
+    strokeWidthSelect: 2,
+    opacity: 1,
+    clickEvent: 1,
+}];
+// 
+settFargerForLagData(eventyrskogOppdatertData, eventyrskogOppdatertData[1]["fillColor"]);
 
 // Fotruter flyttes til under annet
 
@@ -1345,6 +1490,28 @@ var vektorLagEventyrskog = new ol.layer.Vector({
 });
 forberedFaktasiderForOmraadeVektorlag(vektorLagEventyrskog, false)
 
+// Eventyrskog Oppdatert
+
+var vektorKildeEventyrskogOppdatert = new ol.source.Vector({
+    // url: originWithSlash + "data/eventyrskoger.geojson",
+    url: eventyrskogOppdatertData[1].data,
+    format: geoJSONFormat,
+    features: new ol.Collection()
+});
+var vektorLagEventyrskogOppdatert = new ol.layer.Vector({
+    source: vektorKildeEventyrskogOppdatert,
+    style: lagStilFraGeoJSON(eventyrskogOppdatertData, false),
+    name: "vektorlagEventyrskogOpppdatert",
+    uiName: "Eventyrskog (2024)",
+    stilSelect: lagStilFraGeoJSON(eventyrskogOppdatertData, true),
+    strokeColorSelect: hentOgKonverterFargeArray(eventyrskogOppdatertData, 'strokeColorSelect'),
+    fillColorSelect: hentOgKonverterFargeArray(eventyrskogOppdatertData, 'fillColorSelect'),
+    opacity: DEFAULT_OPACITY,
+    clickable: true,
+    visible: false
+});
+forberedFaktasiderForOmraadeVektorlag(vektorLagEventyrskogOppdatert, false)
+
 // Referanse til vektorlaget? // Hm... Er null for WMS-lag som loader async.
 
 var kartMenyLagDictMarkagrensa = {
@@ -1356,6 +1523,12 @@ var kartMenyLagDictEventyrskog = {
     lagNavn: vektorLagEventyrskog.get("name"),
     uiLagNavn: vektorLagEventyrskog.get("uiName"),
     lagReferanse: vektorLagEventyrskog
+}
+// Eventyrskog Oppdatert
+var kartMenyLagDictEventyrskogOppdatert = {
+    lagNavn: vektorLagEventyrskogOppdatert.get("name"),
+    uiLagNavn: vektorLagEventyrskogOppdatert.get("uiName"),
+    lagReferanse: vektorLagEventyrskogOppdatert
 }
 
 // Flytte senere?
@@ -1431,7 +1604,7 @@ const ikonerLettDummyData = ["GeoJSONdata", {
     opacity: 1,
 }];
 settFargerForLagData(ikonerLettDummyData, ikonerLettDummyData[1]["fillColor"]);
-// console.log(ikonerLettDummyData);
+// if(debug) console.log(ikonerLettDummyData);
 
 const ikonerMiddelsDummyData = ["GeoJSONdata", {
     dataName: "ikonerMiddelsDummyData",
@@ -1444,7 +1617,7 @@ const ikonerMiddelsDummyData = ["GeoJSONdata", {
     opacity: 1,
 }];
 settFargerForLagData(ikonerMiddelsDummyData, ikonerMiddelsDummyData[1]["fillColor"]);
-// console.log(ikonerMiddelsDummyData);
+// if(debug) console.log(ikonerMiddelsDummyData);
 
 const ikonerVanskeligDummyData = ["GeoJSONdata", {
     dataName: "ikonerVanskeligDummyData",
@@ -1457,7 +1630,7 @@ const ikonerVanskeligDummyData = ["GeoJSONdata", {
     opacity: 1,
 }];
 settFargerForLagData(ikonerVanskeligDummyData, ikonerVanskeligDummyData[1]["fillColor"]);
-// console.log(ikonerVanskeligDummyData);
+// if(debug) console.log(ikonerVanskeligDummyData);
 
 const ikonerLarsMonsenDummyData = ["GeoJSONdata", {
     dataName: "ikonerLarsMonsenDummyData",
@@ -1470,7 +1643,7 @@ const ikonerLarsMonsenDummyData = ["GeoJSONdata", {
     opacity: 1,
 }];
 settFargerForLagData(ikonerLarsMonsenDummyData, ikonerLarsMonsenDummyData[1]["fillColor"]);
-// console.log(ikonerLarsMonsenDummyData);
+// if(debug) console.log(ikonerLarsMonsenDummyData);
 
 const ikonerFridjofNansenDummyData = ["GeoJSONdata", {
     dataName: "ikonerFridjofNansenDummyData",
@@ -1483,7 +1656,7 @@ const ikonerFridjofNansenDummyData = ["GeoJSONdata", {
     opacity: 1,
 }];
 settFargerForLagData(ikonerFridjofNansenDummyData, ikonerFridjofNansenDummyData[1]["fillColor"]);
-// console.log(ikonerFridjofNansenDummyData);
+// if(debug) console.log(ikonerFridjofNansenDummyData);
 
 const ikonerUkjentDummyData = ["GeoJSONdata", {
     dataName: "ikonerUkjentDummyData",
@@ -1496,7 +1669,7 @@ const ikonerUkjentDummyData = ["GeoJSONdata", {
     opacity: 1,
 }];
 settFargerForLagData(ikonerUkjentDummyData, ikonerUkjentDummyData[1]["fillColor"]);
-// console.log(ikonerUkjentDummyData);
+// if(debug) console.log(ikonerUkjentDummyData);
 
 var kalenderRuter2021Data = ["GeoJSONdata", {
     dataName: "kalenderRuter2021Data",
@@ -1515,8 +1688,7 @@ var kalenderRuter2021Data = ["GeoJSONdata", {
 
 settFargerForLagData(kalenderRuter2021Data, kalenderRuter2021Data[1]["fillColor"]);
 
-// Debug:
-// console.log(kalenderRuter2021Data[1]["data"])
+// if(debug) console.log(kalenderRuter2021Data[1]["data"])
 
 var kalenderRuter2021FeatureCollection = new ol.Collection();
 
@@ -1555,8 +1727,8 @@ var vektorlagKalenderRuter2021Ikoner = new ol.layer.Vector({
     visible: false,
     zIndex: 1000, // For at ikoner alltid skal komme over andre kartlag.
     style: function (feature) {
-        // console.log(feature);
-        // console.log(feature.get('features'));
+        // if(debug) console.log(feature);
+        // if(debug) console.log(feature.get('features'));
         var currentFeatures = feature.get('features');
         var stilListe = [];
         for(var i = 0; i < currentFeatures.length; i++){
@@ -1628,7 +1800,7 @@ var vektorLagKalenderRuter2021 = new ol.layer.Vector({
     clickable: true,
     visible: false
 });
-// console.log(vektorLagKalenderRuter2021);
+// if(debug) console.log(vektorLagKalenderRuter2021);
 
 // // FUNKER. Omg...
 async function fetchJSON(url) {
@@ -1657,9 +1829,9 @@ verdi (Verneverdi)
 */
 async function lesDataForVektorlag(dataUrl, vektorKilde){
 
-    console.log(`lesDataForVektorlag kjører. dataUrl: ${dataUrl}`)
-    // console.log(`lesDataForVektorlag kjører. dataUrl: ${dataUrl}. vektorKilde:`)
-    // console.log(vektorKilde)
+    if(debug) console.log(`lesDataForVektorlag kjører. dataUrl: ${dataUrl}`)
+    // if(debug) console.log(`lesDataForVektorlag kjører. dataUrl: ${dataUrl}. vektorKilde:`)
+    // if(debug) console.log(vektorKilde)
 
     var data = await fetchJSON(dataUrl).then(function (data) {
         var features = geoJSONFormat.readFeatures(data);
@@ -1674,13 +1846,13 @@ async function lesDataForVektorlag(dataUrl, vektorKilde){
                 return foundFeatures;
 
             }catch(e){
-                console.log(`error oppstod under henting av data fra ${dataUrl} for feature ... error: ${e}`);
+                if(debug) console.log(`error oppstod under henting av data fra ${dataUrl} for feature ... error: ${e}`);
                 return null;
             }
 
         });
     }).catch((e) => {
-        console.log(`feil under fetch av JSON fra url ${dataUrl}. error: ${e}`);
+        if(debug) console.log(`feil under fetch av JSON fra url ${dataUrl}. error: ${e}`);
         return null;
     });
 
@@ -1697,7 +1869,7 @@ function kalkulerLengdeIKm(geometri){
 // Eksempel: https://openlayers.org/en/latest/examples/measure.html
 function kalkulerArealIKvadratmeter(geometri){
     const areal = ol.sphere.getArea(geometri);
-    // console.log(`kalkulerArealIKvadratmeter ~ areal: ${areal}`)
+    // if(debug) console.log(`kalkulerArealIKvadratmeter ~ areal: ${areal}`)
     // if (areal > 10000) {
     //     output = Math.round((area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
     //   } else {
@@ -1716,7 +1888,7 @@ async function behandleKalenderturer() {
         features.forEach((feature) => {
             // Funker! Men må fikse slik at den blir satt tilbake til dashed etter highlight også trykke vekk.
             try {
-                // console.log(feature);
+                // if(debug) console.log(feature);
 
                 // HTML-versjon av turbeskrivelsen
                 var tekstHTML = lagHTMLTekst(feature.get("tekst"), "medium");
@@ -1749,7 +1921,7 @@ async function behandleKalenderturer() {
                 // feature.set("lengdeKm", lengthRounded);
                 feature.set("lengdeKm", kalkulerLengdeIKm(featureGeometry));
                 feature.set("geometriMidtKoordinater", featureGeometryExtentCenter);
-                //   console.log(feature);
+                //   if(debug) console.log(feature);
 
                 // Sette kartlag type. Så langt to typer: kalender_tur og natursti
                 feature.set("kartlagType", "kalender_tur");
@@ -1865,11 +2037,11 @@ async function behandleKalenderturer() {
                     if (!erEnStiplet) ruter2021FeatureIconsCollection.push(iconFeature);
 
                 } catch (e) {
-                    console.log("exception under laging av featureIcon: " + e);
+                    if(debug) console.log("exception under laging av featureIcon: " + e);
                 }
 
             } catch (exception) {
-                console.log("Noe error når jeg gjorde feature.get()... e: " + exception);
+                if(debug) console.log("Noe error når jeg gjorde feature.get()... e: " + exception);
             }
 
             kalenderRuter2021FeatureCollection.push(feature);
@@ -1877,14 +2049,14 @@ async function behandleKalenderturer() {
 
         // do what you want to do with `data` here...
         data.features.forEach(function (feature) {
-            // console.log(feature);
+            // if(debug) console.log(feature);
             // var symbol = feature.properties['icon'];
-            // console.log(symbol);
+            // if(debug) console.log(symbol);
         });
 
         // 
-        // console.log("Rutene er klare?");
-        //   console.log(kalenderRuter2021FeatureCollection);
+        // if(debug) console.log("Rutene er klare?");
+        // if(debug) console.log(kalenderRuter2021FeatureCollection);
 
         // Hm. Tenkte å gjøre to ting... Legge til hovedrute til stiplet, og stiplettene til hovedruten? ... Oof...
 
@@ -1933,18 +2105,18 @@ async function behandleKalenderturer() {
         if (infoSideFeatureNavnFraUrl && infoSideKartlagNavnFraUrl) {
 
             if (infoSideKartlagNavnFraUrl == vektorLagKalenderRuter2021.get("name")) {
-                // console.log("Kalenderturer! Kjører visInfoSideProgrammatisk");
+                // if(debug) console.log("Kalenderturer! Kjører visInfoSideProgrammatisk");
                 // visInfoSideProgrammatisk(true);
                 visInfoSideProgrammatisk();
             }
 
         }
 
-        console.log("behandleKalenderturer resolved!");
+        if(debug) console.log("behandleKalenderturer resolved!");
         return true;
 
     }).catch(function (error) {
-        console.log("behandleKalenderturer ~ error! error: " + error);
+        if(debug) console.log("behandleKalenderturer ~ error! error: " + error);
         return false;
     });
 
@@ -2049,7 +2221,7 @@ async function behandleNaturstiData() {
         var features = geoJSONFormat.readFeatures(fetchData);
         features.forEach((feature) => {
             try {
-                // console.log(feature);
+                // if(debug) console.log(feature);
 
                 var postnr = feature.get("postnr");
                 var koordinater = feature.get("koordinater");
@@ -2063,8 +2235,8 @@ async function behandleNaturstiData() {
                 feature.set("lengdeMeter", lengthMeterNoDecimals);
                 feature.set("lengdeKm", lengthRounded);
 
-                //   console.log("type: " + typeof(postnr) + ", lengthMeterRounded: " + lengthMeterRounded + ", lengthMeterNoDecimals: " + lengthMeterNoDecimals);
-                //   console.log("postnr: " + postnr + ", koordinater: " + koordinater + ", lengde i meter: " + length + ", km: " + lengthRounded );
+                // if(debug) console.log("type: " + typeof(postnr) + ", lengthMeterRounded: " + lengthMeterRounded + ", lengthMeterNoDecimals: " + lengthMeterNoDecimals);
+                // if(debug) console.log("postnr: " + postnr + ", koordinater: " + koordinater + ", lengde i meter: " + length + ", km: " + lengthRounded );
 
                 // Definere kartlag type. Hittil to typer: kalender_rute og natursti
                 feature.set("kartlagType", "natursti");
@@ -2101,21 +2273,19 @@ async function behandleNaturstiData() {
                         ruteKartlag: vektorLagNatursti,
                     });
 
-                    // console.log(feature);
+                    // if(debug) console.log(feature);
 
                     naturstiFeatureIconsCollection.push(iconFeature);
                     // tempFeatureIconsCollection.push(iconFeature);
-                    // console.log(tempFeatureIconsCollection);
+                    // if(debug) console.log(tempFeatureIconsCollection);
                 } catch (e) {
-                    console.log("exception under laging av featureIcon: " + e);
+                    if(debug) console.log("exception under laging av featureIcon: " + e);
                 }
 
                 // For ikoner slutt
 
             } catch (exception) {
-                console.log(
-                    "Natursti ~ Noe error når jeg gjorde feature.get()... e: " + exception
-                );
+                if(debug) console.log("Natursti ~ Noe error når jeg gjorde feature.get()... e: " + exception);
             }
 
             naturstiFeatureCollection.push(feature);
@@ -2126,18 +2296,18 @@ async function behandleNaturstiData() {
         if (infoSideFeatureNavnFraUrl && infoSideKartlagNavnFraUrl) {
 
             if (infoSideKartlagNavnFraUrl == vektorLagNatursti.get("name")) {
-                // console.log("Natursti! Kjører visInfoSideProgrammatisk");
+                // if(debug) console.log("Natursti! Kjører visInfoSideProgrammatisk");
                 // visInfoSideProgrammatisk(false);
                 visInfoSideProgrammatisk();
             }
 
         }
 
-        console.log("behandleNaturstiData ~ resolved!");
+        if(debug) console.log("behandleNaturstiData ~ resolved!");
         return true;
 
     }).catch(function (error) {
-        console.log("behandleNaturstiData ~ error! error: " + error);
+        if(debug) console.log("behandleNaturstiData ~ error! error: " + error);
         return false;
     });
 }
@@ -2158,6 +2328,8 @@ var kartMenyGruppeDictNaturopplevelser = {
         kartMenyLagDictMarkagrensa,
         kartMenyLagDictSkyggelagMarkagrensa,
         kartMenyLagDictEventyrskog,
+        // Eventyrskog Oppdatert
+        kartMenyLagDictEventyrskogOppdatert,
 
         // VIKTIG NOTAT (VERSJON 1): UTEN kalender ruter!
         kartMenyLagDictKalenderRuter2021,
@@ -2173,6 +2345,8 @@ var mapGruppeNaturopplevelser = new ol.layer.Group({
         vektorLagMarkagrensa,
         vektorlagSkyggelagMarkagrensa,
         vektorLagEventyrskog, 
+        // Eventyrskog Oppdatert
+        vektorLagEventyrskogOppdatert,
         vektorLagKalenderRuter2021,
         //
         vektorLagNatursti,
@@ -2650,64 +2824,64 @@ var wmsLagOsloArealFriluftslivomraader = new ol.layer.Image({
 });
 
 // wmsLagOsloArealFriluftslivomraader.on('change', function(e) {
-//     console.log("wmsLagOsloArealFriluftslivomraader ~ change");
-//     console.log(e);
+//     if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change");
+//     if(debug) console.log(e);
 // });
 wmsLagOsloArealFriluftslivomraader.on('change:extent', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:extent");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:extent");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:maxResolution', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:maxResolution");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:maxResolution");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:maxZoom', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:maxZoom");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:maxZoom");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:minResolution', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:minResolution");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:minResolution");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:minZoom', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:minZoom");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:minZoom");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:opacity', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:opacity");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:opacity");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:source', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:source");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:source");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:visible', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:visible");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:visible");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('change:zIndex', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ change:zIndex");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ change:zIndex");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('error', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ error");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ error");
+    if(debug) console.log(e);
 });
 // wmsLagOsloArealFriluftslivomraader.on('postrender', function(e) {
-//     console.log("wmsLagOsloArealFriluftslivomraader ~ postrender");
-//     console.log(e);
+//     if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ postrender");
+//     if(debug) console.log(e);
 // });
 // wmsLagOsloArealFriluftslivomraader.on('prerender', function(e) {
-//     console.log("wmsLagOsloArealFriluftslivomraader ~ prerender");
-//     console.log(e);
+//     if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ prerender");
+//     if(debug) console.log(e);
 // });
 wmsLagOsloArealFriluftslivomraader.on('propertychange', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ propertychange");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ propertychange");
+    if(debug) console.log(e);
 });
 wmsLagOsloArealFriluftslivomraader.on('sourceready', function(e) {
-    console.log("wmsLagOsloArealFriluftslivomraader ~ sourceready");
-    console.log(e);
+    if(debug) console.log("wmsLagOsloArealFriluftslivomraader ~ sourceready");
+    if(debug) console.log(e);
 });
 
 var kartMenyLagDictOsloArealFriluftslivomraader = {
@@ -2981,23 +3155,23 @@ kartMenyMasterListe.push(kartMenyGruppeDictBakgrunnskart);
 // Hm... Kanskje burde gjøre dem til Dict? F.eks. for å gjøre kartMenyMasterListe["Geometri"]?
 // Men kanskje ikke nødvendig?
 
-// console.log("kartMenyMasterListe er klar! (Brukes til bygginga av HTML)");
+// if(debug) console.log("kartMenyMasterListe er klar! (Brukes til bygginga av HTML)");
 
 for (var e = 0; e < kartMenyMasterListe.length; e++) {
-    // console.log(kartMenyMasterListe[e]);
+    // if(debug) console.log(kartMenyMasterListe[e]);
 
-    // console.log("gruppeNavn: " + kartMenyMasterListe[e]["gruppeNavn"]);
+    // if(debug)console.log("gruppeNavn: " + kartMenyMasterListe[e]["gruppeNavn"]);
     var kartlag = kartMenyMasterListe[e]["kartMenyLag"];
     for (var f = 0; f < kartlag.length; f++) {
-        // console.log(kartlag[f]);
+        // if(debug) console.log(kartlag[f]);
 
-        // console.log("lagNavn: " + kartlag[f]["lagNavn"]);
+        // if(debug) console.log("lagNavn: " + kartlag[f]["lagNavn"]);
         var ref = kartlag[f]["lagReferanse"];
         if(ref != null){
-            // console.log("LagReferanse: " + ref.get("name"));
-            // console.log( kartlag[f]);
+            // if(debug) console.log("LagReferanse: " + ref.get("name"));
+            // if(debug) console.log( kartlag[f]);
         } else {
-            // console.log("ref for " + kartlag[f]["lagNavn"] + " er null.");
+            // if(debug) console.log("ref for " + kartlag[f]["lagNavn"] + " er null.");
         }
     }
 }
@@ -3013,14 +3187,14 @@ function finnIndexForGruppe(inputGruppeNavn){
 
 function settInnKartlagIMasterListe(inputLagNavn, inputKartlag){
     for (var e = 0; e < kartMenyMasterListe.length; e++) {
-        // console.log(kartMenyMasterListe[e]);
+        // if(debug) console.log(kartMenyMasterListe[e]);
         var kartlag = kartMenyMasterListe[e]["kartMenyLag"];
         for (var f = 0; f < kartlag.length; f++) {
             var lagNavn = kartlag[f]["lagNavn"];
-            // console.log(lagNavn);
+            // if(debug) console.log(lagNavn);
             if(lagNavn == inputLagNavn){
-                // console.log("settInnKartlagIMasterListe ~ lagNavn: " + lagNavn + ", inputLagNavn: " + inputLagNavn);
-                // console.log(inputKartlag);
+                // if(debug) console.log("settInnKartlagIMasterListe ~ lagNavn: " + lagNavn + ", inputLagNavn: " + inputLagNavn);
+                // if(debug) console.log(inputKartlag);
                 kartlag[f]["lagReferanse"] = inputKartlag;
             }
         }
@@ -3029,15 +3203,15 @@ function settInnKartlagIMasterListe(inputLagNavn, inputKartlag){
 
 // Søk i Masterlisten med navnet på kartlaget (string).
 function hentKartlagIMasterListe(inputLagNavn) {
-    // console.log("hentKartlagIMasterListe ~ inputLagNavn: " + inputLagNavn);
+    // if(debug) console.log("hentKartlagIMasterListe ~ inputLagNavn: " + inputLagNavn);
     for (var e = 0; e < kartMenyMasterListe.length; e++) {
-        // console.log(kartMenyMasterListe[e]);
+        // if(debug) console.log(kartMenyMasterListe[e]);
         var kartlag = kartMenyMasterListe[e]["kartMenyLag"];
         for (var f = 0; f < kartlag.length; f++) {
             var lagNavn = kartlag[f]["lagNavn"];
-            // console.log(lagNavn);
+            // if(debug) console.log(lagNavn);
             if(lagNavn == inputLagNavn){
-                // console.log("hentKartlagIMasterListe ~ lagNavn: " + lagNavn + ", inputLagNavn: " + inputLagNavn);
+                // if(debug) console.log("hentKartlagIMasterListe ~ lagNavn: " + lagNavn + ", inputLagNavn: " + inputLagNavn);
                 // Hvis lagReferanse ikke eksisterer eller definert, returneres null.
                 return kartlag[f]["lagReferanse"];
             }
@@ -3295,45 +3469,45 @@ function makeStripedPattern(lineWidth, spacing, slope, color){
 function hentIkonForRute(rute, ikonKartlag){
     const ruteNavn = hentFeatureNavnMedBackup(rute);
 
-    console.log("hentIkonForRute ~ For rute: " + ruteNavn);
+    if(debug)console.log("hentIkonForRute ~ For rute: " + ruteNavn);
 
     const source = ikonKartlag.getSource();
-    // console.log("source: ");
-    // console.log(source);
+    // if(debug) console.log("source: ");
+    // if(debug) console.log(source);
     const features = source.getFeatures();
-    // console.log("features: ");
-    // console.log(features);
+    // if(debug)console.log("features: ");
+    // if(debug) console.log(features);
     const sourceFeatures = source.getSource().getFeatures();
-    // console.log("sourceFeatures: ");
-    // console.log(sourceFeatures);
+    // if(debug) console.log("sourceFeatures: ");
+    // if(debug) console.log(sourceFeatures);
 
     let ikonFeature = null;
 
     if(sourceFeatures){
 
-        // console.log("sourceFeatures funker denne gangen?!");
+        // if(debug) console.log("sourceFeatures funker denne gangen?!");
 
         for(var i = 0; i < sourceFeatures.length; i++){
             const ikonF = sourceFeatures[i];
             const navn = ikonF.get("featureRuteNavn");
             if(ruteNavn == navn){
-                // console.log("Fant ikon feature med rute navnet!");
+                // if(debug) console.log("Fant ikon feature med rute navnet!");
                 return ikonF;
             }
         }
 
     } else {
 
-        // console.log("sourceFeatures er null. Prøve med features...");
+        // if(debug) console.log("sourceFeatures er null. Prøve med features...");
 
         for(var i = 0; i < features.length; i++){
             const featureGroup = features[i].get("features");
-            // console.log(featureGroup);
+            // if(debug) console.log(featureGroup);
             for(j = 0; j < featureGroup.length; j++){
                 const ikonF = featureGroup[j];
                 const navn = ikonF.get("featureRuteNavn");
                 if(ruteNavn == navn){
-                    // console.log("Fant ikon feature med rute navnet!");
+                    // if(debug) console.log("Fant ikon feature med rute navnet!");
                     return ikonF;
                 }
             }
@@ -3460,23 +3634,23 @@ var vektorLagMidlertidig = new ol.layer.Vector({
 // function visInfoSideProgrammatisk(erKalenderTur){
 function visInfoSideProgrammatisk(){
     // if(!map){
-    //     console.log("visInfoSideProgrammatisk ~ Ops, kartobjektet er ikke definert enda. For tidlig!");
+    //     if(debug) console.log("visInfoSideProgrammatisk ~ Ops, kartobjektet er ikke definert enda. For tidlig!");
     //     return;
     // }
 
     // if(infoSideStartFullfort){
-    //     console.log("visInfoSideProgrammatisk ~ er allerede kjørt. Returnerer!");
+    //     if(debug) console.log("visInfoSideProgrammatisk ~ er allerede kjørt. Returnerer!");
     //     return;
     // }
 
     const kartlag = hentKartlagMedLagNavn(infoSideKartlagNavnFraUrl);
-    // console.log("visInfoSideProgrammatisk ~ kartlag: ");
-    // console.log(kartlag);
+    // if(debug) console.log("visInfoSideProgrammatisk ~ kartlag: ");
+    // if(debug) console.log(kartlag);
 
     // const features = kartlag.getFeatures();
     const features = kartlag.getSource().getFeaturesCollection().getArray();
-    // console.log("visInfoSideProgrammatisk ~ features: ");
-    // console.log(features);
+    // if(debug) console.log("visInfoSideProgrammatisk ~ features: ");
+    // if(debug) console.log(features);
 
     let feature;
     let featureNavn;
@@ -3487,8 +3661,8 @@ function visInfoSideProgrammatisk(){
         if(navn == infoSideFeatureNavnFraUrl){
             feature = f;
             featureNavn = navn;
-            console.log("visInfoSideProgrammatisk ~ Fant feature! navn: " + navn);
-            // console.log(feature);
+            if(debug) console.log("visInfoSideProgrammatisk ~ Fant feature! navn: " + navn);
+            // if(debug) console.log(feature);
         }
     }
 
@@ -3500,7 +3674,7 @@ function visInfoSideProgrammatisk(){
 
         infoSideStartFullfort = true; // Eventuelt stoppe her, siden det er koden under som gjør noe endring.
 
-        console.log(`visInfoSideProgrammatisk ~ kartlagType: ${kartlagType}`)
+        if(debug) console.log(`visInfoSideProgrammatisk ~ kartlagType: ${kartlagType}`)
 
         switch(kartlagType){
             case "kalender_tur": 
@@ -3514,7 +3688,7 @@ function visInfoSideProgrammatisk(){
                 // Definerer disse variablene her for å sette selection med dem etter at map er klar.
                 // omraadeFeatureFraUrl = feature;
                 // omraadeKartlagFraUrl = kartlag;
-                // console.log("visInfoSideProgrammatisk ~ definert omraadeFeatureFraUrl og omraadeKartlagFraUrl.");
+                // if(debug) console.log("visInfoSideProgrammatisk ~ definert omraadeFeatureFraUrl og omraadeKartlagFraUrl.");
                 
                 // Hm, var redd for race condition, men ser ut til å funke? ...
                 selectRute(feature, kartlag, null);
@@ -3526,11 +3700,11 @@ function visInfoSideProgrammatisk(){
         }
 
         // if(erKalenderTur){
-        //     // console.log("visInfoSideProgrammatisk ~ erKalenderTur er sann! feature: ");
-        //     // console.log(feature);
+        //     // if(debug) console.log("visInfoSideProgrammatisk ~ erKalenderTur er sann! feature: ");
+        //     // if(debug) console.log(feature);
         //     const stipletter = feature.get("stipletter");
-        //     // console.log("visInfoSideProgrammatisk ~ stipletter: ");
-        //     // console.log(stipletter);
+        //     // if(debug) console.log("visInfoSideProgrammatisk ~ stipletter: ");
+        //     // if(debug) console.log(stipletter);
         //     visFeatureInfoSide(feature, featureNavn, kartlag, stipletter, false);
         // } else {
         //     // Hm, kan den funke for område kartlag også?
@@ -3541,7 +3715,7 @@ function visInfoSideProgrammatisk(){
 }
 
 function kalkulerFaktiskTekstLengde(tekst){
-    // console.log(`kalkulerFaktiskTekstLengde ~~ tekst: ${tekst}`)
+    // if(debug) console.log(`kalkulerFaktiskTekstLengde ~~ tekst: ${tekst}`)
     let faktiskTekst = tekst;
     // faktiskTekst = faktiskTekst.replaceAll("\n","<br/>"); // Lager linjeskifte i HTML.
     faktiskTekst = faktiskTekst.replaceAll("\n",""); // Ta bort tegnene for linjeskift.
@@ -3549,7 +3723,7 @@ function kalkulerFaktiskTekstLengde(tekst){
     while(lenkeTekstStartIndeks > -1){
         const lenkeStartMedParanteser = lenkeTekstStartIndeks;
         const lenkeSluttMedParanteser = faktiskTekst.indexOf("))", lenkeTekstStartIndeks) + 2;
-        // console.log("lenkeStartMedParanteser: " + lenkeStartMedParanteser + ", lenkeSluttMedParanteser: " + lenkeSluttMedParanteser);
+        // if(debug) console.log("lenkeStartMedParanteser: " + lenkeStartMedParanteser + ", lenkeSluttMedParanteser: " + lenkeSluttMedParanteser);
     
         const sub = faktiskTekst.substring(lenkeStartMedParanteser, lenkeSluttMedParanteser);
     
@@ -3557,19 +3731,19 @@ function kalkulerFaktiskTekstLengde(tekst){
         const lenkeTekstStart = 2; // Gå forbi brackets i starten
         const lenkeTekstSlutt = sub.indexOf("]]");
         const lenkeTekst = sub.substring(lenkeTekstStart, lenkeTekstSlutt);
-        // console.log("lenkeTekst: " + lenkeTekst);
+        // if(debug) console.log("lenkeTekst: " + lenkeTekst);
     
         const lenkeStart = sub.indexOf("((") + 2; // Hm, kan evt. ta lenkeTekstSlutt + 4?
         const lenkeSlutt = sub.indexOf("))");
         const lenke = sub.substring(lenkeStart, lenkeSlutt);
-        // console.log("lenke: " + lenke);;
+        // if(debug) console.log("lenke: " + lenke);;
     
         faktiskTekst = faktiskTekst.replace(sub, lenkeTekst);
     
         // Ser etter nye lenker og oppdaterer lenkeTekstStartIndeks.
         lenkeTekstStartIndeks = faktiskTekst.indexOf("[[", lenkeTekstStartIndeks);
       }
-      // console.log(`faktiskTekst: ${faktiskTekst}`)
+      // if(debug) console.log(`faktiskTekst: ${faktiskTekst}`)
       // return faktiskTekst;
       return faktiskTekst.length;
 }
@@ -3582,7 +3756,7 @@ function lagHTMLTekst(tekst, fontSize){
     while(lenkeTekstStartIndeks > -1){
       const lenkeStartMedParanteser = lenkeTekstStartIndeks;
       const lenkeSluttMedParanteser = tekstHTML.indexOf("))", lenkeTekstStartIndeks) + 2;
-      // console.log("lenkeStartMedParanteser: " + lenkeStartMedParanteser + ", lenkeSluttMedParanteser: " + lenkeSluttMedParanteser);
+      // if(debug) console.log("lenkeStartMedParanteser: " + lenkeStartMedParanteser + ", lenkeSluttMedParanteser: " + lenkeSluttMedParanteser);
   
       const sub = tekstHTML.substring(lenkeStartMedParanteser, lenkeSluttMedParanteser);
   
@@ -3590,12 +3764,12 @@ function lagHTMLTekst(tekst, fontSize){
       const lenkeTekstStart = 2; // Gå forbi brackets i starten
       const lenkeTekstSlutt = sub.indexOf("]]");
       const lenkeTekst = sub.substring(lenkeTekstStart, lenkeTekstSlutt);
-      // console.log("lenkeTekst: " + lenkeTekst);
+      // if(debug) console.log("lenkeTekst: " + lenkeTekst);
   
       const lenkeStart = sub.indexOf("((") + 2; // Hm, kan evt. ta lenkeTekstSlutt + 4?
       const lenkeSlutt = sub.indexOf("))");
       const lenke = sub.substring(lenkeStart, lenkeSlutt);
-      // console.log("lenke: " + lenke);
+      // if(debug) console.log("lenke: " + lenke);
   
       // Obs, merk at teksten til lenken blir satt til tekststørrelse medium inline.
       // Kunne muligens lønne seg å gå over til HTML-struktur i teksten.
@@ -3614,7 +3788,7 @@ function lagHTMLTekst(tekst, fontSize){
       // const lenkeHTML = "<a href='" + lenke + "' target='_blank' style='font-size: medium' title='" + lenkeTekst + "'>" + lenkeTekst + "</a>";
         //   const lenkeHTML = "<a href='" + lenke + "' target='_blank' style='font-size: 14px;' title='" + lenkeTekst + "'>" + lenkeTekst + "</a>";
         // const lenkeHTML = "<a href='" + lenke + "' target='_blank' title='" + lenkeTekst + "'>" + lenkeTekst + "</a>";
-        // console.log(lenkeHTML);
+        // if(debug) console.log(lenkeHTML);
   
       tekstHTML = tekstHTML.replace(sub, lenkeHTML);
   
@@ -3659,17 +3833,16 @@ function forberedFaktasiderForOmraadeVektorlag(kartlag, aktiverFaktasider) {
         if(ingress){
             props.feature.set("ingressHTML", lagHTMLTekst(ingress, "medium"))
             props.feature.set("ingressLengde", kalkulerFaktiskTekstLengde(ingress));
-            // console.log(`faktiskIngressLengde: ${kalkulerFaktiskTekstLengde(ingress)}`)
+            // if(debug) console.log(`faktiskIngressLengde: ${kalkulerFaktiskTekstLengde(ingress)}`)
         }
-        // console.log(props.feature)
-        console.log(`${kartlagNavn} ~ addfeature ~ featureNavn: ${hentFeatureNavnMedBackup(props.feature)}`)
+        // if(debug) console.log(`${kartlagNavn} ~ addfeature ~ featureNavn: ${hentFeatureNavnMedBackup(props.feature)}`)
     })
     // Callback når features er ferdig lastet
     kilde.on("featuresloadend", function (props) {
-        console.log(`${kartlagNavn} ~ features er ferdig loadet!`)
+        if(debug) console.log(`${kartlagNavn} ~ features er ferdig loadet!`)
         if (infoSideFeatureNavnFraUrl && infoSideKartlagNavnFraUrl) {
             if (infoSideKartlagNavnFraUrl == kartlagNavn) {
-                console.log(`${kartlagNavn} Kjører visInfoSideProgrammatisk!"`);
+                if(debug) console.log(`${kartlagNavn} Kjører visInfoSideProgrammatisk!"`);
                 // visInfoSideProgrammatisk(false);
                 visInfoSideProgrammatisk();
             }

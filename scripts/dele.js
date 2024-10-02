@@ -29,17 +29,17 @@ $(document).ready(function () {
   delFigurFarge = document.getElementById("figurFargeForm");
 
   $("#titleForm").on("input", null, null, function () {
-    console.log("delFormTittel forandret verdi!");
+    if(debug) console.log("delFormTittel forandret verdi!");
     genererURL();
   });
   $("#beskrivelseForm").on("input", null, null, function () {
-    console.log("beskrivelseForm forandret verdi!");
+    if(debug) console.log("beskrivelseForm forandret verdi!");
     genererURL();
   });
 
   // Egentlig, for disse, best å ikke forandre med en gang.
   delFormZoom.addEventListener("change", function () {
-    console.log("delFormZoom forandret verdi!");
+    if(debug) console.log("delFormZoom forandret verdi!");
     // Hvis forandret manuelt:
     if(map != null){
         if (delFormZoom.value != map.getView().getZoom()) {
@@ -48,7 +48,7 @@ $(document).ready(function () {
     }
   });
   delFormX.addEventListener("change", function () {
-    console.log("delFormX forandret verdi!");
+    if(debug) console.log("delFormX forandret verdi!");
     lagOgSettNySirkel(
       delFormX.value,
       delFormY.value,
@@ -58,7 +58,7 @@ $(document).ready(function () {
     genererURL();
   });
   delFormY.addEventListener("change", function () {
-    console.log("delFormY forandret verdi!");
+    if(debug) console.log("delFormY forandret verdi!");
     lagOgSettNySirkel(
       delFormX.value,
       delFormY.value,
@@ -68,7 +68,7 @@ $(document).ready(function () {
     genererURL();
   });
   delFormSirkelDiameter.addEventListener("change", function () {
-    console.log("delFormSirkelDiameter forandret verdi!");
+    if(debug) console.log("delFormSirkelDiameter forandret verdi!");
     lagOgSettNySirkel(
       delFormX.value,
       delFormY.value,
@@ -78,7 +78,7 @@ $(document).ready(function () {
     genererURL();
   });
   delFigurFarge.addEventListener("change", function () {
-    console.log("delFigurFarge ~ verdien ble forandret!");
+    if(debug) console.log("delFigurFarge ~ verdien ble forandret!");
     lagOgSettNySirkel(
       delFormX.value,
       delFormY.value,
@@ -103,7 +103,7 @@ $(document).ready(function () {
   });
 
   delKopierURL.addEventListener("click", function () {
-    console.log("Trykket på delKopierURL knappen!");
+    if(debug) console.log("Trykket på delKopierURL knappen!");
     // alert("Trykket på delKopierURL knappen!"); // Funker!
     // copyTextToClipboard(delGenerertURL.textContent);
     kopierDeleLenkeMedNavigatorClipboard(delGenerertURL.textContent);
@@ -126,7 +126,7 @@ function kopierDeleLenkeMedNavigatorClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
       // alert("Du kopierte dette til utklippstavlen: " + text);
       delCallbackKopiering.textContent = "Lenken ble kopiert!";
-      console.log('Async: Copying to clipboard was successful!');
+      if(debug) console.log('Async: Copying to clipboard was successful!');
     }, function(err) {
       delCallbackKopiering.textContent = "Lenken må kopieres manuelt.";
       console.error('Async: Could not copy text: ', err);
@@ -180,7 +180,7 @@ function genererURL(){
     var url = window.location.href;
     var baseURL = window.location.href.split("?")[0];
   
-    // console.log("url: " + url + ", baseURL: " + baseURL); // Base: http://127.0.0.1:5500/index.html
+    // if(debug) console.log("url: " + url + ", baseURL: " + baseURL); // Base: http://127.0.0.1:5500/index.html
   
     var generertURL = baseURL + "?"; // Funker at alle variablene starter med &.
   
@@ -208,13 +208,13 @@ function genererURL(){
   
     // 
     var strengMedAktiveKartlag = String(hentAktiveKartlagSomStreng(map));
-    // console.log("kodeStreng: " + kodeStreng + ", typeof: " + typeof(kodeStreng));
+    // if(debug) console.log("kodeStreng: " + kodeStreng + ", typeof: " + typeof(kodeStreng));
     if(strengMedAktiveKartlag != "" && strengMedAktiveKartlag != "undefined"){
-      // console.log("genererURL ~ kodeStreng er ikke tom og heller ikke undefined.");
+      // if(debug) console.log("genererURL ~ kodeStreng er ikke tom og heller ikke undefined.");
       generertURL += "&lag=" + strengMedAktiveKartlag;
     }
   
-    console.log("generertURL: " + generertURL);
+    if(debug) console.log("generertURL: " + generertURL);
     delGenerertURL.textContent = generertURL;
     // Reset:
     delCallbackKopiering.textContent = "";

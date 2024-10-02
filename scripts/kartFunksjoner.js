@@ -10,17 +10,17 @@ function lagUrl(){
 
     var baseUrl = window.location.href.split("?")[0];
     var generertUrl = baseUrl + "?";
-    // console.log("baseUrl: " + baseUrl);
-    // console.log("generertUrl: " + generertUrl);
+    // if(debug) console.log("baseUrl: " + baseUrl);
+    // if(debug) console.log("generertUrl: " + generertUrl);
 
     // Zoom nivå
     var zoom = map.getView().getZoom();
-    // console.log("zoom: " + zoom);
+    // if(debug) console.log("zoom: " + zoom);
     generertUrl += "&zoom=" + zoom;
 
     // Senter koordinater
     var viewCenter = map.getView().getCenter();
-    // console.log("view center: " + viewCenter);
+    // if(debug) console.log("view center: " + viewCenter);
     generertUrl += "&center=" + viewCenter;
 
     // Bakgrunnskartlag
@@ -39,13 +39,13 @@ function lagUrl(){
 
     history.replaceState(null, "", generertUrl); // Funker uten reload!
 
-    // console.log("lagUrl ~ oppdaterte url parametere: " + window.location.href.split("?")[1]);
+    // if(debug) console.log("lagUrl ~ oppdaterte url parametere: " + window.location.href.split("?")[1]);
 
 }
 
 // Hent kartlag fra map-objektet med kartlagets navn.
 function hentKartlagMedLagNavn(inLagNavn) {
-//   console.log("hentKartlagMedLagNavn ~ inLagNavn: " + inLagNavn);
+//   if(debug) console.log("hentKartlagMedLagNavn ~ inLagNavn: " + inLagNavn);
   var funnet = false;
   var funnetLag = null;
 
@@ -55,14 +55,14 @@ function hentKartlagMedLagNavn(inLagNavn) {
         if (group.get("name") != "Bakgrunnskart") {
 
           group.getLayers().forEach((layer) => {
-            // console.log(group.get("name") + " ~ " + layer.get("name"));
+            // if(debug) console.log(group.get("name") + " ~ " + layer.get("name"));
             if (!funnet) {
               if (inLagNavn === layer.get("name")) {
                 // Debug:
-                // console.log("hentKartlagMedLagNavn ~ fant kartlaget! inLagNavn: " + inLagNavn + ", layer: " + layer);
+                // if(debug) console.log("hentKartlagMedLagNavn ~ fant kartlaget! inLagNavn: " + inLagNavn + ", layer: " + layer);
                 funnetLag = layer;
-                // console.log("Fant lag med samme navn!");
-                // console.log(layer);
+                // if(debug) console.log("Fant lag med samme navn!");
+                // if(debug) console.log(layer);
 
                 funnet = true; // For å gjøre færre operasjoner? Viktigst for group, siden da vil den ikke sjekke hvert lag i gruppene.
                 return layer; // Denne funker ikke...
@@ -100,10 +100,10 @@ function radToDeg(rad) {
 function lagFeaturePunkt(x, y, farge){
 
     // if(CSS.supports("color", farge)){
-    //     console.log("Fargen " + farge + " er gyldig!");
+    //     if(debug) console.log("Fargen " + farge + " er gyldig!");
     // } else {
     //     farge = defaultFargen;
-    //     console.log("Fargen " + farge + " er ugyldig og ble satt til default fargen: " + defaultFargen);
+    //     if(debug) console.log("Fargen " + farge + " er ugyldig og ble satt til default fargen: " + defaultFargen);
     // }
 
     // Overrider farge for nå...
@@ -209,12 +209,12 @@ function lageFeatureSirkel(x, y, diameter, farge){
     // Hm, må være rgba og ikke hex?
 
     if(CSS.supports("color", farge)){
-        console.log("Fargen " + farge + " er gyldig!");
+        if(debug) console.log("Fargen " + farge + " er gyldig!");
     } else {
         // farge = 'rgba(25, 100, 50, 0.5)';
         farge = defaultFargen;
-        // console.log("Fargen " + farge + " er ugyldig og ble satt til rgba(25, 100, 50, 0.5).");
-        console.log("Fargen " + farge + " er ugyldig og ble satt til default fargen: " + defaultFargen);
+        // if(debug) console.log("Fargen " + farge + " er ugyldig og ble satt til rgba(25, 100, 50, 0.5).");
+        if(debug) console.log("Fargen " + farge + " er ugyldig og ble satt til default fargen: " + defaultFargen);
     }
 
     var sirkelStil = new ol.style.Style({
@@ -245,9 +245,9 @@ function lageFeatureSirkel(x, y, diameter, farge){
 // Lager ny feature sirkel og setter den inn i vektorlaget.
 function lagOgSettNySirkel(x, y, diameter, farge){
 
-    console.log("lagOgSettNySirkel ~ x: " + x + ", y: " + y);
+    if(debug) console.log("lagOgSettNySirkel ~ x: " + x + ", y: " + y);
     if(!x || !y){
-        console.log("x eller y er false eller udefinert!");
+        if(debug) console.log("x eller y er false eller udefinert!");
         vectorSourceGeometry.clear();
         return; // Faktisk funket. Kanskje cleare også?
     }
@@ -258,10 +258,10 @@ function lagOgSettNySirkel(x, y, diameter, farge){
     if(nySirkel != null){
       vectorSourceGeometry.clear();
       vectorSourceGeometry.addFeature(nySirkel);
-      console.log("Lagde ny sirkel på koordinatene x: " + delFormX.value + ", y: " + delFormY.value);
+      if(debug) console.log("Lagde ny sirkel på koordinatene x: " + delFormX.value + ", y: " + delFormY.value);
       // Oppdatere URL her? Hvis sirkelen ble laget? ... Eller, gjøre det uansett? ...
     } else {
-      console.log("nySirkel er null?!");
+      if(debug) console.log("nySirkel er null?!");
     }
     // vectorSourceGeometry.clear();
     // vectorSourceGeometry.addFeature(nySirkel);
@@ -296,8 +296,8 @@ function prepareView() {
     // Definert her, men må kjøres i annen funksjon etter at map er definert.
     if(lagRaw != null){
         lagListeFraURL = String(lagRaw).split(",");
-        console.log(lagListeFraURL);
-        // console.log("prepareView ~ lagListeFraURL: " + lagListeFraURL);
+        if(debug) console.log(lagListeFraURL);
+        // if(debug) console.log("prepareView ~ lagListeFraURL: " + lagListeFraURL);
     }
 
     var coordSysFull = ""; // F.eks: EPSG:4326
@@ -315,7 +315,7 @@ function prepareView() {
 
     // Hm... Ser egentlig ut som at alle bruker EPSG her? ...
     coordSysFull = defaultCoordSysType + ":" + coordSysCode;
-    // console.log(coordSysFull);
+    // if(debug) console.log(coordSysFull);
 
     if (x == null | y == null) {
         switch (coordSysFull) {
@@ -356,7 +356,7 @@ function prepareView() {
     // Bare lag punkt hvis x og y er definert?
     if(x != null && y != null){
         var point = new ol.geom.Point([finalX, finalY]);
-        console.log(point.getCoordinates());
+        if(debug) console.log(point.getCoordinates());
     
         var circle = new ol.geom.Circle(
             proj4(coordSysFull, coordSysPseudoMercator, [finalX, finalY]), // Center
