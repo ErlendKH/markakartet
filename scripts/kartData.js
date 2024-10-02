@@ -1329,7 +1329,8 @@ var kartMenyGruppeDictVerneomraader = {
         kartMenyLagDictFriluftStatligSikra,
         // kartMenyLagDictVernEtterMarkaloven,
         kartMenyLagDictFriluftslivsomraaderVernede,
-        kartMenyLagDictFeatureServerNaturvernOmraade,
+        // ikke klar
+        // kartMenyLagDictFeatureServerNaturvernOmraade,
     ]
 }
 // OBS! Disse blir lagt til i map-objektet!
@@ -1344,7 +1345,8 @@ var mapGruppeVerneomrader = new ol.layer.Group({
         wmsLagFriluftStatligSikra,
         // vektorLagVernEtterMarkaloven,
         wmsLagFriluftslivsomraaderVernede,
-        vektorlagFeatureServerNaturvernOmrade,
+        // ikke klar
+        // vektorlagFeatureServerNaturvernOmrade,
     ]
   });
 
