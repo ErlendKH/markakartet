@@ -69,15 +69,21 @@ $(document).ready(function () {
     if(debug) console.log("errorFunction triggered");
     if(debug) console.log(error);
     ordneGPS(false);
-    if(error.message.length > 0) fadeInnogUtDebugMelding(error.message, 5000);
-    // fadeInnogUtDebugMelding(error.message, 5000);
+    if(error.message.length < 1){
+      fadeInnogUtDebugMelding("Ukjent feil med GPS", 5000);
+    } else {
+      fadeInnogUtDebugMelding(error.message, 5000);
+    }
   }
   function positionErrorFunction(positionError){
     if(debug) console.log("positionErrorFunction triggered");
     if(debug) console.log(positionError);
     ordneGPS(false);
-    if(error.message.length > 0) fadeInnogUtDebugMelding(positionError.message, 5000);
-    // fadeInnogUtDebugMelding(positionError.message, 5000);
+    if(error.message.length < 1){
+      fadeInnogUtDebugMelding("Posisjonsfeil med GPS", 5000);
+    } else {
+      fadeInnogUtDebugMelding(positionError.message, 5000);
+    }
   }
   
   function toggleTracking(state) {

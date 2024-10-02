@@ -2329,7 +2329,7 @@ var kartMenyGruppeDictNaturopplevelser = {
         kartMenyLagDictSkyggelagMarkagrensa,
         kartMenyLagDictEventyrskog,
         // Eventyrskog Oppdatert
-        kartMenyLagDictEventyrskogOppdatert,
+        // kartMenyLagDictEventyrskogOppdatert,
 
         // VIKTIG NOTAT (VERSJON 1): UTEN kalender ruter!
         kartMenyLagDictKalenderRuter2021,
@@ -2346,7 +2346,7 @@ var mapGruppeNaturopplevelser = new ol.layer.Group({
         vektorlagSkyggelagMarkagrensa,
         vektorLagEventyrskog, 
         // Eventyrskog Oppdatert
-        vektorLagEventyrskogOppdatert,
+        // vektorLagEventyrskogOppdatert,
         vektorLagKalenderRuter2021,
         //
         vektorLagNatursti,
