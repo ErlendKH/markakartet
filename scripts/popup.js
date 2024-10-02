@@ -16,7 +16,7 @@ $(document).ready(function(){
   popupClose = document.getElementById('popup-closer');
 
   $("#popup-closer").click(function (e) {
-    console.log("popupClose clicked! Hiding.");
+    if(debug) console.log("popupClose clicked! Hiding.");
     if (popupContainer != null) {
       popupVises = false;
       popupContainer.style.display = "none";
@@ -28,12 +28,12 @@ $(document).ready(function(){
   });
 
   $("#popup-content").click(function(e){
-    console.log("popupContent clicked!");
+    if(debug) console.log("popupContent clicked!");
     e.stopPropagation();
   })
 
   $("#ol-popup").click(function () {
-    console.log("popupContainer clicked! Hiding.");
+    if(debug) console.log("popupContainer clicked! Hiding.");
     if (popupContainer != null) {
       popupVises = false;
       popupContainer.style.display = "none";

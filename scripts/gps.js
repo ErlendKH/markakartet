@@ -43,16 +43,16 @@ $(document).ready(function () {
 
   if (gpsKnapp != null) {
     gpsKnapp.addEventListener("click", function () {
-      // console.log("gpsKnapp clicked!");
+      if(debug) console.log("gpsKnapp clicked!");
       toggleTracking(!gpsErAktiv);
     });
   } else {
-    console.log("Ingen gpsKnapp med ID gpsButtonContainer er definert.");
+    if(debug) console.log("Ingen gpsKnapp med ID gpsButtonContainer er definert.");
   }
 
   function successFunction(position){
-    // console.log("successFunction triggered");
-    // console.log(position);
+    // if(debug) console.log("successFunction triggered");
+    // if(debug) console.log(position);
     ordneGPS(true);
 
     // Plausible Analytics
@@ -62,20 +62,22 @@ $(document).ready(function () {
       });
       */
     } catch (e) {
-      console.log(e);
+      if(debug) console.log(e);
     }
   }
   function errorFunction(error){
-    // console.log("errorFunction triggered");
-    // console.log(error);
+    if(debug) console.log("errorFunction triggered");
+    if(debug) console.log(error);
     ordneGPS(false);
-    fadeInnogUtDebugMelding(error.message, 5000);
+    if(error.message.length > 0) fadeInnogUtDebugMelding(error.message, 5000);
+    // fadeInnogUtDebugMelding(error.message, 5000);
   }
   function positionErrorFunction(positionError){
-    // console.log("positionErrorFunction triggered");
-    // console.log(positionError);
+    if(debug) console.log("positionErrorFunction triggered");
+    if(debug) console.log(positionError);
     ordneGPS(false);
-    fadeInnogUtDebugMelding(positionError.message, 5000);
+    if(error.message.length > 0) fadeInnogUtDebugMelding(positionError.message, 5000);
+    // fadeInnogUtDebugMelding(positionError.message, 5000);
   }
   
   function toggleTracking(state) {
@@ -91,7 +93,7 @@ $(document).ready(function () {
 
   // 
   geolocation.on("change:tracking", function (event) {
-    // console.log("geolocation ~ tracking changed! tracking: " + event.target.get("tracking"));
+    // if(debug) console.log("geolocation ~ tracking changed! tracking: " + event.target.get("tracking"));
   });
 
   // update the HTML page when the position changes.
@@ -113,7 +115,7 @@ $(document).ready(function () {
     var intHeadingDegrees = parseInt(headingDegrees);
 
     // // document.getElementById("debugGPS").innerHTML = "acc: " + intAccuracy + ", alt: " + intAltitude + ", head: " + headingShort + ", hDegrees: " + intHeadingDegrees;
-    // console.log("geolocation on change ~ x: " + x + ", y: " + y + ", heading: " + heading);
+    // if(debug) console.log("geolocation on change ~ x: " + x + ", y: " + y + ", heading: " + heading);
 
     if (!sentrertViewPaaGPS && brukeViewSentreringMedGPS) {
       if (position != null) {
@@ -173,7 +175,7 @@ function startGPS(){
     var coordinates = geolocation.getPosition();
     // Er den null her? I så fall, må trigge den et annet sted...
     if (coordinates != null) {
-      console.log(coordinates);
+      if(debug) console.log(coordinates);
       // if(!sentrertViewPaaGPS && brukeViewSentreringMedGPS){
       //   sentrertViewPaaGPS = true;
       //   // map.getView().setCenter(coordinates); // Ser ut til å virke!
@@ -187,7 +189,7 @@ function startGPS(){
 // https://openlayers.org/en/latest/apidoc/module-ol_Geolocation.GeolocationError.html
 function debugVisGPSFeilmelding(error){
   // Hvis man printer error får man bare opp object Object.
-  console.log("geolocation, showError. error code: " + error.code + ", message: " + error.message);
+  if(debug) console.log("geolocation, showError. error code: " + error.code + ", message: " + error.message);
 
   let melding = "";
   if (debugGPS != null) {
@@ -246,15 +248,15 @@ function onChangePositionFeature() {
       // }
 
       var start = positionFeaturePunkt.getCoordinates();
-      // console.log(start);
+      // if(debug) console.log(start);
       var end = coordinates;
-      // console.log(end);
+      // if(debug) console.log(end);
       // Så, sette dem i en lineString.
       lineStringFlytt.setCoordinates([start, end]); // Yep!
-      // console.log(lineStringFlytt.getCoordinates());
+      // if(debug) console.log(lineStringFlytt.getCoordinates());
       // Linjedistanse.
       const lineDistance = ol.sphere.getLength(lineStringFlytt); // Funker bra!
-      // console.log("lineStringFlytt ~ lineDistance: " + lineDistance);
+      // if(debug) console.log("lineStringFlytt ~ lineDistance: " + lineDistance);
 
       // Så... Start animering? ...
       startFlyttPosisjonFeature();
@@ -300,7 +302,7 @@ function lagpositionFeature() {
 function flyttFeature(event) {
   var msBrukt = event.frameState.time - tidFlyttStart;
   var distanse = msBrukt * msHastighet;
-  // console.log("flyttFeature ~ msBrukt: " + msBrukt + ", distanse: " + distanse);
+  // if(debug) console.log("flyttFeature ~ msBrukt: " + msBrukt + ", distanse: " + distanse);
   const currentCoordinate = lineStringFlytt.getCoordinateAt(distanse);
 
   positionFeaturePunkt.setCoordinates(currentCoordinate);
@@ -321,14 +323,14 @@ function startFlyttPosisjonFeature() {
   tidFlyttStart = Date.now();
   vektorLagGPS.on("postrender", flyttFeature);
   positionFeature.setGeometry(null);
-  console.log("startFlyttPosisjonFeature starter!");
+  if(debug) console.log("startFlyttPosisjonFeature starter!");
 }
 
 function avsluttFlyttPosisjonFeature() {
   tidFlyttStart = 0;
   positionFeature.setGeometry(positionFeaturePunkt);
   vektorLagGPS.un("postrender", flyttFeature);
-  console.log("avsluttFlyttPosisjonFeature ferdig!");
+  if(debug) console.log("avsluttFlyttPosisjonFeature ferdig!");
 }
 
 // function fadeInnogUtDebugMelding(melding, varighet){
@@ -384,7 +386,7 @@ function lagGpsStiler() {
 }
 
 function deviceOrientationListener(event){
-  console.log(event);
+  if(debug) console.log(event);
 
   const absolute = event.absolute;
   const alpha = event.alpha;
@@ -398,7 +400,7 @@ function deviceOrientationListener(event){
   try{
     debugGPS.innerHTML = "v27 ~ alpha: " + alpha.toFixed(2) + ", alphaRad: " + alphaRad.toFixed(2) + ", radians: " + radians.toFixed(2) + ", grader: " + grader.toFixed(2);
   }catch(e){
-    console.log(e);
+    if(debug) console.log(e);
   }
   // positionFeatureStilMedPil[1].getImage().setRotation(alphaRad);
 }
