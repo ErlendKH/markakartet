@@ -437,7 +437,7 @@ $(document).ready(function(){
     }).extend([
       scaleControl(),
     ]),
-    interactions: ol.interactions.defaults({
+    interactions: ol.interaction.defaults({
       pinchRotate: false
     }),
     overlays: [popupOverlay]
