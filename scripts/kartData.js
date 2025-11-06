@@ -2921,7 +2921,12 @@ var kartMenyLagDictOsloArealFriluftslivomraader = {
 var wmsLagHovednaturtyper = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/mapserver/WMSServer",
-        params: { 'LAYERS': "hovednaturtype_hb13_skog" },
+        params: { 
+            'LAYERS': "hovednaturtype_hb13_skog",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
@@ -2933,7 +2938,12 @@ var wmsLagHovednaturtyper = new ol.layer.Image({
 var wmsLagHovedelv = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://nve.geodataonline.no/arcgis/services/Elvenett1/MapServer/WMSServer",
-        params: { 'LAYERS': "hovedelv" },
+        params: { 
+            'LAYERS': "hovedelv",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
@@ -2946,7 +2956,12 @@ var wmsLagHovedelv = new ol.layer.Image({
 var wmsLagInnsjoer = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://nve.geodataonline.no/arcgis/services/Innsjodatabase2/MapServer/WMSServer",
-        params: { 'LAYERS': "Innsjodatabase" },
+        params: { 
+            'LAYERS': "Innsjodatabase",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
@@ -2975,7 +2990,12 @@ var kartMenyLagDictInnsjoer = {
 var wmsLagLivsmiljoFlate = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://wms.nibio.no/cgi-bin/mis?",
-        params: { 'LAYERS': "Livsmiljo_flate" },
+        params: { 
+            'LAYERS': "Livsmiljo_flate",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
@@ -2994,7 +3014,12 @@ var kartMenyLagDictLivsmiljoFlate = {
 var wmsLagLivsmiljoFlateIkkeUtvalgt = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://wms.nibio.no/cgi-bin/mis?",
-        params: { 'LAYERS': "Livsmiljo_flate_ikkeutvalgt" },
+        params: { 
+            'LAYERS': "Livsmiljo_flate_ikkeutvalgt",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
@@ -3013,7 +3038,12 @@ var kartMenyLagDictLivsmiljoFlateIkkeUtvalgt = {
 var wmsLagNokkelbiotop = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://wms.nibio.no/cgi-bin/mis?",
-        params: { 'LAYERS': "Nokkelbiotop" },
+        params: { 
+            'LAYERS': "Nokkelbiotop",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
@@ -3034,10 +3064,13 @@ var wmsLagOsloArealHogstklasser = new ol.layer.Image({
         url: "https://wms.nibio.no/cgi-bin/skogbruksplan?VERSION=1.3.0",
         params: {
             'LAYERS': "hogstklasser",
-            'SLD_VERSION': "1.1.0"
+            'SLD_VERSION': "1.1.0",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
         },
+        crossOrigin: 'anonymous',
         ratio: 2,
-        serverType: 'mapserver'
+        serverType: 'mapserver',
     }),
     opacity: DEFAULT_OPACITY,
     visible: false,
@@ -3058,8 +3091,11 @@ var wmsLagOsloArealAldersklasser = new ol.layer.Image({
         url: "https://wms.nibio.no/cgi-bin/skogbruksplan?VERSION=1.3.0",
         params: { 
             'LAYERS': "aldersklasser_eldste_skogen" ,
-            'SLD_VERSION': "1.1.0"
+            'SLD_VERSION': "1.1.0",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
         },
+        crossOrigin: 'anonymous',
         ratio: 2,
         serverType: 'mapserver'
     }),
