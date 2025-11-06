@@ -1049,8 +1049,13 @@ settFargerForLagData(vernEtterMarkalovenData, vernEtterMarkalovenData[1]["fillCo
 var wmsLagNaturvernOmrade = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://kart.miljodirektoratet.no/arcgis/services/vern/mapserver/WMSServer",
-        params: { 'LAYERS': "naturvern_omrade" },
+        params: { 
+            'LAYERS': "naturvern_omrade",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+         },
         ratio: 2,
+        crossOrigin: 'anonymous',
         serverType: 'mapserver'
     }),
     opacity: DEFAULT_OPACITY,
@@ -1062,8 +1067,13 @@ var wmsLagNaturvernOmrade = new ol.layer.Image({
 var wmsLagNaturvernKlasserOmrade = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://kart.miljodirektoratet.no/arcgis/services/vern/mapserver/WMSServer",
-        params: { 'LAYERS': "naturvern_klasser_omrade" },
+        params: { 
+            'LAYERS': "naturvern_klasser_omrade",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
         ratio: 2,
+        crossOrigin: 'anonymous',
         serverType: 'mapserver'
     }),
     opacity: DEFAULT_OPACITY,
@@ -1075,8 +1085,13 @@ var wmsLagNaturvernKlasserOmrade = new ol.layer.Image({
 var wmsLagForeslattNaturvernOmrade = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://kart.miljodirektoratet.no/arcgis/services/vern/mapserver/WMSServer",
-        params: { 'LAYERS': "foreslatt_naturvern_omrade" },
+        params: { 
+            'LAYERS': "foreslatt_naturvern_omrade",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
         ratio: 2,
+        crossOrigin: 'anonymous',
         serverType: 'mapserver'
     }),
     opacity: DEFAULT_OPACITY,
@@ -1088,8 +1103,13 @@ var wmsLagForeslattNaturvernOmrade = new ol.layer.Image({
 var wmsLagFriluftStatligSikra = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://kart.miljodirektoratet.no/arcgis/services/friluftsliv_statlig_sikra/mapserver/WMSServer",
-        params: { 'LAYERS': "friluftsliv_statlig_sikra" },
+        params: { 
+            'LAYERS': "friluftsliv_statlig_sikra",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
         ratio: 2,
+        crossOrigin: 'anonymous',
         serverType: 'mapserver'
     }),
     opacity: DEFAULT_OPACITY,
@@ -1101,8 +1121,13 @@ var wmsLagFriluftStatligSikra = new ol.layer.Image({
 var wmsLagFriluftslivsomraaderVernede = new ol.layer.Image({
     source: new ol.source.ImageWMS({
         url: "https://kart.miljodirektoratet.no/arcgis/services/friluftsliv_vern/mapserver/WMSServer",
-        params: { 'LAYERS': "friluftsliv_verneomrader" },
+        params: { 
+            'LAYERS': "friluftsliv_verneomrader",
+            'FORMAT': 'image/png',
+            'TRANSPARENT': true,
+        },
         ratio: 2,
+        crossOrigin: 'anonymous',
         serverType: 'mapserver'
     }),
     opacity: DEFAULT_OPACITY,

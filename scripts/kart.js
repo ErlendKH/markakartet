@@ -437,6 +437,9 @@ $(document).ready(function(){
     }).extend([
       scaleControl(),
     ]),
+    interactions: ol.interactions.defaults({
+      pinchRotate: false
+    }),
     overlays: [popupOverlay]
   });
 

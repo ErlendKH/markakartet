@@ -1,7 +1,11 @@
 
-// coordinates er i formatet [long, lat].
-function sentrerKart(coordinates){
-
+function detectServerType(wmsUrl) {
+  if (!wmsUrl) return null;
+  const url = wmsUrl.toLowerCase();
+  if (url.includes('geoserver')) return 'geoserver';
+  if (url.includes('mapserver')) return 'mapserver';
+  if (url.includes('qgis')) return 'qgis';
+  return null;
 }
 
 // Genererer URL
